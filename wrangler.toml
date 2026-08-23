@@ -5,4 +5,4 @@ pages_build_output_dir = "dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "cardapio"
-database_id = "533aa092c7f3571e13fdc103ba716bdf"
+database_id = "e3335147-f41c-4b0f-a486-7e6c0392ef81"
