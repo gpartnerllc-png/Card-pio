@@ -1,178 +1,21 @@
 <!doctype html>
 <html lang="pt-BR">
- <head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260821-05-d0038b4","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/50d846425a1e5082.telemetry_sdk.js" integrity="sha512-Otbex+ztlVbcEGql0rXGd/3E3ee/hqAntg6DeuUEMG6pIPbXGOSvZbFZVzknAXi1tH/itQ+ijEhOTr2aWj6CXg=="></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cardápio Laguna Plaza</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <script src="/_sdk/b3bf9e8ac58e6ad6.data_sdk.js" integrity="sha512-otc1u9NYq9Ms5Jt//7vmhrrqR5CLPr8Jdgs6741gqniClfLMcfmC+jK/cKuQdhLv6G0esJ/FzaMS9tv0T/vj/Q=="></script>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
-  <style>
-    :root { --ink:#0f1720; --panel:#17212e; --panel-2:#223044; --gold:#f4b942; --cream:#fff7e6; }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family:"Libre Franklin",sans-serif; background:#0f1720; color:#eef2f7; }
-    .app-shell { width:100%; min-height:100%; background:radial-gradient(circle at 85% 0%,#263b48 0,#101820 42%,#0b1118 100%); }
-    .serif { font-family:"Playfair Display",serif; }
-    .no-scrollbar::-webkit-scrollbar { display:none; }
-    .no-scrollbar { scrollbar-width:none; }
-    .menu-card { animation:rise .35s ease both; }
-    @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-    .overlay { background:rgba(2,6,12,.77); backdrop-filter:blur(8px); }
-    .choice.selected { border-color:#f4b942; background:rgba(244,185,66,.14); color:#fde29a; }
-    .choice:focus-visible, button:focus-visible, input:focus-visible { outline:3px solid #f4b942; outline-offset:3px; }
-  </style>
-  <script src="/_sdk/a27879be4562f807.resizing_sdk.js" type="text/javascript" integrity="sha512-trcxRwz+QLrzK0Dqg95xqVRryR7WtWui2YopXyzOIr3WMde3j/xCRgT63/b/EAg7klDsAOuHzoRgoryhwm8QFw=="></script>
- </head>
- <body data-template-id="__page-root">
-  <div class="app-shell pb-24">
-   <header class="sticky top-0 z-40 border-b border-amber-400/20 bg-slate-950/90 px-4 py-4 backdrop-blur-xl">
-    <div class="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-     <div>
-      <p class="mb-1 text-xs font-bold uppercase tracking-[.22em] text-amber-300">Hotel &amp; Restaurante</p>
-      <h1 data-template-id="restaurant-name" class="canva-text serif text-2xl font-bold text-amber-300"></h1>
-      <p data-template-id="restaurant-subtitle" class="canva-text mt-1 text-xs text-slate-400"></p>
-     </div>
-     <div class="flex w-full items-center gap-3 lg:w-auto"><label class="relative min-w-0 flex-1 lg:w-72" for="menu-search"> <i data-lucide="search" class="absolute left-3 top-3 h-4 w-4 text-slate-400"></i> <input data-template-id="search-input" id="menu-search" class="canva-input w-full rounded-xl border border-slate-700 bg-slate-800 py-2.5 pl-9 pr-3 text-sm text-white placeholder:text-slate-400" type="search"> </label> <button data-template-id="cart-button" id="open-cart" type="button" class="canva-button flex shrink-0 items-center gap-2 rounded-xl bg-amber-400 px-4 py-2.5 font-bold text-slate-950 shadow-lg shadow-amber-400/15"> <i data-lucide="shopping-bag" class="h-4 w-4"></i><span class="hidden sm:inline">Pedido</span><span id="cart-count" class="rounded-full bg-slate-950 px-2 py-0.5 text-xs text-amber-300">0</span> </button>
-     </div>
-    </div>
-   </header>
-   <main>
-    <section class="mx-auto grid max-w-7xl gap-6 px-4 pb-7 pt-6 lg:grid-cols-[1.1fr_.9fr]">
-     <div class="flex flex-col justify-center rounded-3xl border border-amber-300/15 bg-slate-900/70 p-7">
-      <p class="mb-3 text-xs font-bold uppercase tracking-[.26em] text-amber-300">Sabores para uma boa viagem</p>
-      <h2 data-template-id="hero-title" class="canva-text serif max-w-xl text-4xl font-bold leading-tight text-white"></h2>
-      <p data-template-id="hero-copy" class="canva-text mt-4 max-w-xl leading-7 text-slate-300"></p>
-      <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold text-slate-200"><span class="rounded-full border border-slate-700 px-3 py-2">Dinheiro</span><span class="rounded-full border border-slate-700 px-3 py-2">Cartões</span><span class="rounded-full border border-slate-700 px-3 py-2">Pix</span>
-      </div>
-     </div><img data-template-id="hero-image" loading="lazy" class="canva-image h-64 w-full rounded-3xl object-cover shadow-2xl shadow-black/30 lg:h-full">
-    </section>
-    <nav aria-label="Categorias do cardápio" class="sticky top-[104px] z-30 border-y border-slate-800 bg-slate-950/95 px-4 py-3 backdrop-blur">
-     <div id="category-tabs" class="no-scrollbar mx-auto flex max-w-7xl gap-2 overflow-x-auto"></div>
-    </nav>
-    <section class="mx-auto max-w-7xl px-4 py-8">
-     <div class="mb-5 flex items-end justify-between gap-4">
-      <div>
-       <p class="text-xs font-bold uppercase tracking-[.22em] text-amber-300">Cardápio</p>
-       <h2 data-template-id="category-heading" id="category-name" class="canva-text serif mt-1 text-3xl font-bold text-white"></h2>
-      </div>
-      <p id="result-count" class="text-sm text-slate-400"></p>
-     </div>
-     <div id="category-note" class="mb-5 hidden rounded-2xl border border-amber-400/25 bg-amber-400/10 p-4 text-sm text-amber-100"></div>
-     <div id="menu-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
-     <p data-template-id="empty-search" id="empty-search" class="canva-text hidden rounded-2xl border border-slate-800 bg-slate-900 p-10 text-center text-slate-400"></p>
-    </section>
-   </main>
-   <footer class="mx-auto max-w-7xl border-t border-slate-800 px-4 py-9">
-    <div class="grid gap-6 md:grid-cols-2">
-     <div>
-      <h2 data-template-id="payment-title" class="canva-text text-base font-bold text-amber-300"></h2>
-      <p data-template-id="payment-copy" class="canva-text mt-2 text-sm leading-6 text-slate-400"></p>
-     </div>
-     <p data-template-id="legal-notice" class="canva-text rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-xs leading-5 text-slate-400"></p>
-    </div>
-   </footer>
-  </div>
-  <div id="customizer-overlay" class="overlay fixed inset-0 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="customizer-name">
-   <div class="max-h-[calc(90*min(var(--vh,1vh),1vh))] w-full max-w-2xl overflow-y-auto rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-2xl">
-    <div class="flex items-start justify-between gap-4">
-     <div>
-      <h2 id="customizer-name" class="serif text-2xl font-bold text-amber-300"></h2>
-      <p data-template-id="customizer-copy" class="canva-text mt-2 text-sm text-slate-400"></p>
-     </div><button id="close-customizer" class="rounded-lg p-2 text-slate-400 hover:bg-slate-800" type="button" aria-label="Fechar"><i data-lucide="x"></i></button>
-    </div>
-    <div id="customizer-options" class="mt-6"></div>
-    <div class="mt-7 flex gap-3">
-     <button data-template-id="cancel-button" id="cancel-customization" class="canva-button flex-1 rounded-xl bg-slate-800 px-4 py-3 font-semibold text-slate-200" type="button"></button><button data-template-id="confirm-customization" id="apply-customization" class="canva-button flex-1 rounded-xl bg-amber-400 px-4 py-3 font-bold text-slate-950" type="button"></button>
-    </div>
-   </div>
-  </div>
-  <aside id="cart-panel" class="fixed inset-y-0 right-0 z-50 hidden w-full max-w-md border-l border-slate-700 bg-slate-950 p-6 shadow-2xl" aria-label="Resumo do pedido">
-   <div class="flex h-full flex-col">
-    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-     <h2 data-template-id="cart-title" class="canva-text serif text-2xl font-bold text-white"></h2><button id="close-cart" type="button" class="rounded-lg p-2 text-slate-400 hover:bg-slate-800" aria-label="Fechar pedido"><i data-lucide="x"></i></button>
-    </div>
-    <div id="cart-items" class="no-scrollbar flex-1 space-y-3 overflow-y-auto py-5"></div>
-    <p data-template-id="empty-cart" id="empty-cart" class="canva-text py-14 text-center text-slate-500"></p>
-    <div id="cart-summary" class="hidden border-t border-slate-800 pt-4">
-     <div class="space-y-2 text-sm text-slate-400">
-      <div class="flex justify-between">
-       <span>Subtotal</span><span id="subtotal"></span>
-      </div>
-      <div class="flex justify-between">
-       <span>Taxa de serviço (10%)</span><span id="service-charge"></span>
-      </div>
-     </div>
-     <div class="mt-3 flex justify-between border-t border-slate-800 pt-3 text-xl font-bold text-amber-300">
-      <span>Total</span><span id="total"></span>
-     </div>
-     <p id="order-status" class="mt-3 hidden rounded-lg p-3 text-sm"></p><button data-template-id="confirm-order" id="confirm-order" type="button" class="canva-button mt-5 w-full rounded-xl bg-amber-400 px-4 py-3 font-bold text-slate-950"></button>
-    </div>
-   </div>
-  </aside>
-  <template id="menu-card-template">
-   <article data-template-id="menu-card" class="canva-card menu-card flex min-h-56 flex-col justify-between rounded-2xl border border-slate-800 bg-slate-900 p-5 transition hover:-translate-y-1 hover:border-amber-400/50">
-    <div>
-     <div class="flex gap-4">
-      <h3 data-template-id="menu-item-name" class="canva-text flex-1 text-lg font-bold text-white"></h3><strong class="item-price whitespace-nowrap text-lg text-amber-300"></strong>
-     </div>
-     <p class="item-description mt-3 text-sm leading-6 text-slate-400"></p><span class="drink-tag mt-3 hidden w-fit rounded-md bg-emerald-400/10 px-2 py-1 text-xs font-semibold text-emerald-300">Inclui bebida não alcoólica</span>
-    </div><button data-template-id="add-item-button" class="canva-button add-item mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-800 px-4 py-2.5 font-semibold text-slate-100 hover:bg-amber-400 hover:text-slate-950" type="button"><i data-lucide="plus" class="h-4 w-4"></i><span class="button-label"></span></button>
-   </article>
-  </template>
-  <script src="/_sdk/f344579cd2b2cf70.editing_sdk.js" integrity="sha512-bzdgmfJ/pl/acJqgk+LGvYwJbF03Y2d6f4oZHD96WjqTnvQUZBGVAQkTDRz+fyIMjVc+AXkpwFXqDYLeHDMLSw=="></script>
-  <script>
-    const categories = [
-      ["entradas","Entradas & Sopas",[["Antepasto de Beringela",10,"Antepasto de beringela acompanhado de torradas."],["Caesar Salad",37,"Alfaces variadas, frango grelhado, croutons e parmesão."],["Salada Mandi",32,"Mix de folhas, tomates, picles caseiros, manga e manjericão."],["Bruschetas Caprese",28,"Pão ao alho, molho de tomate, muçarela e manjericão."],["Minestrone",43,"Sopa de filé, legumes, espaguete e manjericão."],["Canja de Galinha",35,"Sopa de legumes, frango, arroz e salsa."],["Croquete de Costela",45,"Costela desfiada empanada em panko com maionese da casa."],["Omelete Tradicional",30,"Ovos, presunto, muçarela, orégano e salada."],["Omelete de Legumes",35,"Ovos, legumes, muçarela, orégano e salada."]]],
-      ["pratos_principais","Pratos Principais",[["Carne de Sol Tambaú",71,"Carne de sol, mandioca frita, arroz, vinagrete e queijo coalho."],["Parmegiana de Filé",62,"Filé empanado, presunto, queijo, molho de tomate, purê e arroz."],["Parmegiana de Frango",55,"Frango empanado, presunto, queijo, molho, purê e arroz."],["Filé de Tilápia ao Molho de Maracujá",62,"Tilápia, molho de maracujá, arroz e legumes."],["Filé Mignon Grelhado",65,"Molho madeira e arroz cremoso de parmesão."],["Strogonoff de Filé",58,"Filé mignon, champignon, arroz e batata palha."],["Strogonoff de Frango",48,"Frango cremoso, arroz branco e batata palha."],["Arroz Caldoso de Costela",57,"Costela desfiada, tomate cereja, manjericão e cebola crispy."],["Moqueca de Peixe e Camarão",79,"Tilápia, camarões, arroz branco e pirão."],["Camarão Scampi",109,"Camarões, vinho branco, limão e espaguete."],["Virado à Paulista",59,"Lombo, arroz, tutu, ovo, couve e banana frita."],["Moqueca de Banana e Grão de Bico",48,"Banana da terra, grão de bico e arroz branco."]]],
-      ["grelhados","Grelhados Customizáveis",[["T-Bone Angus",130],["Assado de Tira Angus",89],["Baby Beef Angus",89],["Chuleta Angus",85],["Tornedor de Filé Mignon",81],["Bife Ancho",75],["Contrafilé",75],["Carne de Sol",69],["Picanha",89],["Lombo Suíno",69],["Peito de Frango",49],["Veggie Steak",38],["Filé de Tilápia",69]]],
-      ["petiscos","Petiscos & Porções",[["Carne de Sol com Mandioca",71,"Carne de sol grelhada com mandioca."],["Fish n' Chips",66,"Peixe empanado, batata rústica e molho tártaro."],["Fish, Shrimp and Chips",87,"Tilápia e camarões empanados com batata rústica."],["Camarão Empanado",80,"Camarões na panko e maionese de limão pepper."],["Frango à Passarinho",44,"Frango marinado, alho frito e limão."],["Pão de Alho",33,"Baguete com creme de alho, muçarela e salsa."],["Batata Mandi",48,"Batata rústica, queijo, páprica, cebola e bacon."],["Calabresa Grelhada",38,"Calabresa, pimentões, cebolas, azeite e limão."]]],
-      ["massas","Massas Italianas",[["Prato de Massa Customizada",48,"Espaguete, penne ou talharim com molho artesanal."]]],
-      ["pizzas","Pizzas Artesanais",[["Calabresa",49,"Pomodoro, calabresa, cebola, orégano e muçarela."],["Pepperoni",69,"Pomodoro, pepperoni, cebola roxa e muçarela."],["Portuguesa",56,"Pomodoro, presunto, cebola, pimentão, ovo e muçarela."],["Marguerita",46,"Pomodoro, tomate, manjericão e muçarela."],["Frango com Catupiry",61,"Pomodoro, frango, muçarela e catupiry."],["4 Queijos",71,"Muçarela, cheddar, parmesão e gorgonzola."],["Muçarela",42,"Pomodoro, muçarela e orégano."],["Gorgonzola",57,"Gorgonzola, muçarela, rapadura e pimenta."],["Banana (Doce)",46,"Muçarela, açúcar e canela."],["Prestígio (Doce)",69,"Muçarela, chocolate meio amargo e coco."]]],
-      ["hamburgueres","Hambúrgueres & Sanduíches",[["Misto Quente",15,"Pão de forma, muçarela e presunto."],["Laguna Burguer",39,"Blend 140g, muçarela e maionese da casa."],["DLB Burguer",49,"Dois blends, muçarela, bacon e maionese."],["Philly CSK",45,"Baguete, carnes, cebola caramelizada e muçarela."],["Sanduíche de Filé",48,"Filé mignon, tomate, alface, muçarela e maionese."],["Mandi Burguer",44,"Blend 140g, cheddar, bacon e cebola caramelizada."],["X-Tudo",48,"Blend, queijo, ovo, presunto, salsicha e bacon."],["Sanduíche Filé de Frango",35,"Frango grelhado, alface, tomate e muçarela."],["Veggie Sandwich",32,"Steak vegano, salada, picles e maionese vegana."]]],
-      ["sobremesas","Sobremesas",[["Tradicional Pudim de Leite Condensado",19,"Pudim cremoso com caramelo."],["Brownie com Sorvete",30,"Brownie, sorvete de creme e calda de chocolate."],["Sorvetes",28,"Morango, creme ou chocolate."],["Banana Flambada",25,"Banana caramelizada, conhaque e sorvete de creme."]]],
-      ["drinks","Drinks & Coquetéis",[["Caipirinha",25,"Cachaça, limão e açúcar."],["Caipiroska",29,"Vodka e frutas."],["Margarita",30,"Tequila, licor de laranja e limão."],["Gin Tônica",30,"Gin, limão, tônica e gelo."],["Cuba Libre",30,"Rum, cola e limão."],["Mojito",31,"Rum, limão, hortelã e água com gás."],["Brasileirinho",30,"Vodka, abacaxi, blue e laranja."],["Gin Fizz",30,"Gin, limão, açúcar e refrigerante."],["Cozumel",25,"Limão, cerveja, gelo e sal."],["Irish Coffee",33,"Whisky, café, baunilha e creme."],["Gin Tropical",35,"Gin, laranja e Red Bull Tropical."],["Piña Colada",31,"Rum, abacaxi, coco e leite condensado."],["Campari Tônica",30,"Campari, tônica, gelo e limão."],["Caipifrutas",33,"Gin, frutas e leite condensado."]]],
-      ["bebidas","Bebidas Não Alcoólicas & Cervejas",[["Água de Coco",9],["Água Mineral com Gás",6],["Água Mineral sem Gás",6],["Água Tônica",8],["Café Expresso",5],["Red Bull",23],["Refrigerante em Lata (350ml)",8,"Coca-Cola, Schweppes, Sprite, Fanta e Guaraná."],["Suco Natural (Copo)",12,"Abacaxi, limão, melancia, melão ou laranja."],["Suco Polpa (Copo)",10,"Acerola, cajá, caju, uva, manga e mais."],["Suco Natural ou Polpa (Jarra 750 ml)",20],["Cerveja Heineken (600 ml)",19],["Cerveja Stella Artois (600 ml)",19],["Cerveja Budweiser Long Neck",10],["Cerveja Heineken Long Neck",12]]],
-      ["menu_executivo","Menu Executivo Companhia Aérea",[["Penne alla Bolognese",0,"Penne ao ragú bolognese, manjericão e muçarela.",true],["Steak ao Molho Poivre",0,"Bife grelhado, purê e legumes.",true],["Contrafilé à Brasileira",0,"Contrafilé, arroz, farofa e batata.",true],["Peito de Frango à Brasileira",0,"Frango, arroz, farofa e batata.",true],["Estrogonofe de Frango",0,"Frango cremoso, arroz e batata palha.",true],["Salada Mandi com Frango",0,"Mix de folhas e peito de frango grelhado.",true],["Tilápia ao Molho de Maracujá",0,"Tilápia, arroz e legumes.",true],["Laguna Burguer Executivo",0,"Blend 180g, muçarela e batata.",true],["Sanduíche de Contrafilé Executivo",0,"Contrafilé, muçarela e batata.",true],["Hambúrguer de Frango Executivo",0,"Frango, salada, muçarela e batata.",true]]]
-    ];
-    const notes={grelhados:"Escolha até 3 guarnições e 1 molho de sua preferência.",massas:"Escolha Espaguete, Penne ou Talharim e combine com um molho artesanal.",menu_executivo:"Todos os pratos acompanham uma bebida não alcoólica."};
-    const garnishes=["Arroz branco","Farofa mandi","Salada mandi","Batata frita","Purê de batata","Feijão cozido","Tutu de feijão","Legumes salteados ao alho","Cebola assada","Legumes grelhados"];
-    const sauces=["À campanha","Barbecue","Chimichurri","Ervas & limão","Molho Poivre","Maracujá & manjericão"];
-    const pastaSauces=["Bolognese","Sugo","Parisiense"];
-    let activeCategory="entradas", query="", cart=[], customItem=null, chosenGarnishes=[], chosenSauce="", chosenPasta="Espaguete", chosenPastaSauce="Bolognese", records=[];
-
-    const money=v=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(v);
-    const categoryData=id=>categories.find(c=>c[0]===id);
-    const itemObject=(category,row,index)=>({id:category[0]+"-"+index,name:row[0],price:row[1],description:row[2]||"",category:category[0],includesDrink:!!row[3]});
-
-    function renderTabs(){
-      const holder=document.getElementById("category-tabs"); holder.innerHTML="";
-      categories.forEach(c=>{const b=document.createElement("button");b.type="button";b.textContent=c[1];b.className="whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition "+(c[0]===activeCategory?"border-amber-400 bg-amber-400 text-slate-950":"border-slate-700 bg-slate-900 text-slate-300");b.onclick=()=>{activeCategory=c[0];query="";document.getElementById("menu-search").value="";renderTabs();renderMenu()};holder.appendChild(b)});
-    }
-    function renderMenu(){
-      const grid=document.getElementById("menu-grid"), empty=document.getElementById("empty-search"), note=document.getElementById("category-note");
-      let items=query?categories.flatMap(c=>c[2].map((r,i)=>itemObject(c,r,i))).filter(i=>(i.name+" "+i.description+" "+categoryData(i.category)[1]).toLowerCase().includes(query.toLowerCase())):categoryData(activeCategory)[2].map((r,i)=>itemObject(categoryData(activeCategory),r,i));
-      document.getElementById("category-name").textContent=query?"Resultados da busca":categoryData(activeCategory)[1];
-      document.getElementById("result-count").textContent=items.length+(items.length===1?" item":" itens");
-      note.textContent=!query&&notes[activeCategory]?"💡 "+notes[activeCategory]:"";note.classList.toggle("hidden",!note.textContent);
-      grid.innerHTML=""; empty.classList.toggle("hidden",items.length>0);
-      items.forEach(item=>{const frag=document.getElementById("menu-card-template").content.cloneNode(true), card=frag.querySelector("article");card.querySelector("[data-template-id='menu-item-name']").textContent=item.name;card.querySelector(".item-price").textContent=item.price?money(item.price):"Consulte";card.querySelector(".item-description").textContent=item.description||"Preparado com o cuidado da nossa cozinha.";if(item.includesDrink)card.querySelector(".drink-tag").classList.remove("hidden");const add=card.querySelector(".add-item");add.querySelector(".button-label").textContent=["grelhados","massas"].includes(item.category)?"Personalizar":"Adicionar";add.onclick=()=>["grelhados","massas"].includes(item.category)?openCustomizer(item):addToCart(item);grid.appendChild(frag)});lucide.createIcons();
-    }
-    function addToCart(item,custom={}){const key=item.id+JSON.stringify(custom);let found=cart.find(x=>x.key===key);if(found)found.quantity++;else cart.push({key,item,custom,quantity:1});document.getElementById("customizer-overlay").classList.add("hidden");document.getElementById("customizer-overlay").classList.remove("flex");renderCart()}
-    function openCustomizer(item){customItem=item;chosenGarnishes=[];chosenSauce="";chosenPasta="Espaguete";chosenPastaSauce="Bolognese";document.getElementById("customizer-name").textContent=item.name;renderCustomizer();const o=document.getElementById("customizer-overlay");o.classList.remove("hidden");o.classList.add("flex")}
-    function renderCustomizer(){const h=document.getElementById("customizer-options");h.innerHTML="";if(customItem.category==="grelhados"){h.innerHTML='<h3 class="mb-3 font-bold text-white">Guarnições <span class="text-sm font-normal text-slate-400">(até 3)</span></h3><div id="garnishes" class="grid grid-cols-2 gap-2"></div><h3 class="mb-3 mt-6 font-bold text-white">Molho</h3><div id="sauces" class="grid grid-cols-2 gap-2"></div>';garnishes.forEach(x=>choice("garnishes",x,chosenGarnishes.includes(x),()=>{chosenGarnishes=chosenGarnishes.includes(x)?chosenGarnishes.filter(v=>v!==x):(chosenGarnishes.length<3?[...chosenGarnishes,x]:chosenGarnishes);renderCustomizer()});sauces.forEach(x=>choice("sauces",x,chosenSauce===x,()=>{chosenSauce=x;renderCustomizer()}))}else{h.innerHTML='<h3 class="mb-3 font-bold text-white">Tipo de massa</h3><div id="pasta" class="grid grid-cols-3 gap-2"></div><h3 class="mb-3 mt-6 font-bold text-white">Molho artesanal</h3><div id="pasta-sauce" class="grid gap-2"></div>';["Espaguete","Penne","Talharim"].forEach(x=>choice("pasta",x,chosenPasta===x,()=>{chosenPasta=x;renderCustomizer()}));pastaSauces.forEach(x=>choice("pasta-sauce",x,chosenPastaSauce===x,()=>{chosenPastaSauce=x;renderCustomizer()}))}}
-    function choice(parent,label,selected,fn){const b=document.createElement("button");b.type="button";b.textContent=(selected?"✓ ":"")+label;b.className="choice rounded-xl border border-slate-700 bg-slate-800 p-3 text-left text-sm font-semibold text-slate-300 "+(selected?"selected":"");b.onclick=fn;document.getElementById(parent).appendChild(b)}
-    function renderCart(){const list=document.getElementById("cart-items"),empty=document.getElementById("empty-cart"),summary=document.getElementById("cart-summary"),count=document.getElementById("cart-count");list.innerHTML="";const quantity=cart.reduce((s,x)=>s+x.quantity,0);count.textContent=quantity;empty.classList.toggle("hidden",cart.length>0);summary.classList.toggle("hidden",cart.length===0);cart.forEach(line=>{const d=document.createElement("div"),custom=line.custom.guarnicoes?.length?line.custom.guarnicoes.join(", ")+" · "+line.custom.molho:line.custom.massa?line.custom.massa+" · "+line.custom.molhoMassa:"";d.className="rounded-2xl border border-slate-800 bg-slate-900 p-4";d.innerHTML=`<div class="flex gap-3"><div class="flex-1"><h3 class="font-bold text-white">${line.item.name}</h3>${custom?`<p class="mt-1 text-xs text-amber-200">${custom}</p>`:""}<p class="mt-2 text-sm text-slate-400">${line.item.price?money(line.item.price):"Valor sob consulta"}</p></div><strong class="text-amber-300">${line.item.price?money(line.item.price*line.quantity):"—"}</strong></div><div class="mt-3 flex items-center justify-end gap-3"><button class="minus rounded-lg bg-slate-800 px-3 py-1 font-bold" type="button">−</button><span class="font-bold">${line.quantity}</span><button class="plus rounded-lg bg-slate-800 px-3 py-1 font-bold" type="button">+</button></div>`;d.querySelector(".minus").onclick=()=>{line.quantity--;if(!line.quantity)cart=cart.filter(x=>x!==line);renderCart()};d.querySelector(".plus").onclick=()=>{line.quantity++;renderCart()};list.appendChild(d)});const subtotal=cart.reduce((s,x)=>s+x.item.price*x.quantity,0),service=subtotal*.1;document.getElementById("subtotal").textContent=money(subtotal);document.getElementById("service-charge").textContent=money(service);document.getElementById("total").textContent=money(subtotal+service)}
-    const handler={onDataChanged(data){records=data}};
-    async function confirmOrder(){const btn=document.getElementById("confirm-order"),status=document.getElementById("order-status"),subtotal=cart.reduce((s,x)=>s+x.item.price*x.quantity,0),service=subtotal*.1;if(!cart.length)return;btn.disabled=true;btn.textContent="Salvando pedido…";const result=await window.dataSdk.create({order_id:"LAG-"+Date.now().toString().slice(-7),items:cart.map(x=>`${x.quantity}x ${x.item.name}`).join(" | "),subtotal,service_charge:service,total:subtotal+service,created_at:new Date().toISOString()});status.classList.remove("hidden");if(result.isOk){status.className="mt-3 rounded-lg bg-emerald-400/10 p-3 text-sm text-emerald-200";status.textContent="Pedido confirmado e enviado para a Canva Sheet.";cart=[];renderCart()}else{status.className="mt-3 rounded-lg bg-red-400/10 p-3 text-sm text-red-200";status.textContent="Não foi possível salvar o pedido. Tente novamente."}btn.disabled=false;btn.textContent="Confirmar pedido"}
-    document.getElementById("menu-search").addEventListener("input",e=>{query=e.target.value.trim();renderMenu()});
-    document.getElementById("open-cart").onclick=()=>document.getElementById("cart-panel").classList.remove("hidden");
-    document.getElementById("close-cart").onclick=()=>document.getElementById("cart-panel").classList.add("hidden");
-    document.getElementById("close-customizer").onclick=document.getElementById("cancel-customization").onclick=()=>{document.getElementById("customizer-overlay").classList.add("hidden");document.getElementById("customizer-overlay").classList.remove("flex")};
-    document.getElementById("apply-customization").onclick=()=>addToCart(customItem,customItem.category==="grelhados"?{guarnicoes:chosenGarnishes,molho:chosenSauce}:{massa:chosenPasta,molhoMassa:chosenPastaSauce});
-    document.getElementById("confirm-order").onclick=confirmOrder;
-    (async()=>{const r=await window.dataSdk.init(handler);if(!r.isOk){document.getElementById("order-status").textContent="Os pedidos não estão disponíveis no momento.";}})();
-    renderTabs();renderMenu();renderCart();lucide.createIcons();
-  </script>
- </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1118" />
+    <meta name="description" content="Cardápio digital do Laguna Plaza Hotel & Restaurante Mandi. Entradas, pratos principais, grelhados, pizzas, drinks e sobremesas." />
+    <title>Cardápio · Laguna Plaza Hotel & Restaurante Mandi</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Libre+Franklin:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-ink text-slate-100 antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
