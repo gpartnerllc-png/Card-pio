@@ -4,6 +4,7 @@ import path from "node:path";
 
 export default defineConfig({
   plugins: [react()],
+  base: "./",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -12,8 +13,6 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Durante `npm run dev`, use `wrangler pages dev` numa outra aba para
-      // servir /api localmente, ou aponte este proxy para ele:
       "/api": "http://127.0.0.1:8788",
     },
   },
