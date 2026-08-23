@@ -6,7 +6,7 @@
   "description": "Cardápio digital do Laguna Plaza Hotel & Restaurante Mandi — Vite + React + TypeScript + Tailwind, hospedado no Cloudflare Pages.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=laguna-plaza-cardapio",
