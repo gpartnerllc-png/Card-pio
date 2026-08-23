@@ -1,0 +1,11 @@
+name = "laguna-plaza-cardapio"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"
+
+# Banco D1 usado pelas Pages Functions em /functions/api/orders.ts
+# Crie com: wrangler d1 create laguna_plaza_db
+# e cole o database_id gerado abaixo.
+[[d1_databases]]
+binding = "DB"
+database_name = "laguna_plaza_db"
+database_id = "SUBSTITUA_PELO_ID_GERADO_PELO_WRANGLER"

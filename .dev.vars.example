@@ -1,0 +1,3 @@
+# Copie este arquivo para .dev.vars (ignorado pelo git) para testar localmente.
+# Token opcional que protege o GET /api/orders (listagem de pedidos).
+ADMIN_TOKEN=troque-por-um-token-seguro
