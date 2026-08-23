@@ -1,4 +1,4 @@
-name = "laguna-plaza-cardapio"
+name = "cardapio"
 compatibility_date = "2025-01-01"
 pages_build_output_dir = "dist"
 
