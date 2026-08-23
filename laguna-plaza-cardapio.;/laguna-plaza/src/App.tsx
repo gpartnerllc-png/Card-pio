@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import { CATEGORIES, getAllItems, getCategory } from "@/data/menu";
+import { useMemo, useState, useEffect } from "react";
 import type { CustomSelection, MenuItem } from "@/data/types";
 import { useCart } from "@/hooks/useCart";
 import { Header } from "@/components/Header";
@@ -10,28 +9,74 @@ import { CustomizerModal } from "@/components/CustomizerModal";
 import { CartPanel } from "@/components/CartPanel";
 import { Footer } from "@/components/Footer";
 
-const ALL_ITEMS = getAllItems();
-
 export default function App() {
-  const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [allItems, setAllItems] = useState<MenuItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const [activeCategory, setActiveCategory] = useState("");
   const [query, setQuery] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
   const [customizerItem, setCustomizerItem] = useState<MenuItem | null>(null);
   const cart = useCart();
 
+  // Conexão poderosa com a API da Cloudflare para puxar categorias e menu do banco D1
+  useEffect(() => {
+    async function fetchMenuData() {
+      try {
+        const [catRes, menuRes] = await Promise.all([
+          fetch("/api/categorias"),
+          fetch("/api/menu")
+        ]);
+
+        const catData = await catRes.json();
+        const menuData = await menuRes.json();
+
+        // Mapeia os dados do banco para o formato esperado pelo front-end
+        const formattedCategories = catData.map((c: any) => ({
+          id: c.id || c.slug,
+          label: c.title || c.name,
+          note: c.note || ""
+        }));
+
+        const formattedItems = menuData.map((p: any) => ({
+          id: String(p.id),
+          categoryId: p.category_id || p.categoryId,
+          name: p.name,
+          description: p.description,
+          price: Number(p.price),
+          image: p.image || ""
+        }));
+
+        setCategories(formattedCategories);
+        setAllItems(formattedItems);
+
+        if (formattedCategories.length > 0) {
+          setActiveCategory(formattedCategories[0].id);
+        }
+      } catch (err) {
+        console.error("Erro ao sincronizar com o banco D1:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchMenuData();
+  }, []);
+
   const visibleItems = useMemo(() => {
     if (!query.trim()) {
-      return ALL_ITEMS.filter((item) => item.categoryId === activeCategory);
+      return allItems.filter((item) => item.categoryId === activeCategory);
     }
     const q = query.trim().toLowerCase();
-    return ALL_ITEMS.filter((item) => {
-      const category = getCategory(item.categoryId);
+    return allItems.filter((item) => {
+      const category = categories.find((c) => c.id === item.categoryId);
       const haystack = `${item.name} ${item.description} ${category?.label ?? ""}`.toLowerCase();
       return haystack.includes(q);
     });
-  }, [activeCategory, query]);
+  }, [allItems, activeCategory, query, categories]);
 
-  const activeCategoryData = getCategory(activeCategory);
+  const activeCategoryData = categories.find((c) => c.id === activeCategory);
   const heading = query.trim() ? "Resultados da busca" : (activeCategoryData?.label ?? "");
   const note = query.trim() ? undefined : activeCategoryData?.note;
 
@@ -50,7 +95,7 @@ export default function App() {
       return { ok: false, message: "Adicione itens ao pedido antes de confirmar." };
     }
     try {
-      const response = await fetch("/api/orders", {
+      const response = await fetch("/api/pedidos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -70,12 +115,20 @@ export default function App() {
         return { ok: false, message: "Não foi possível salvar o pedido. Tente novamente." };
       }
 
-      const data = (await response.json()) as { orderId: string };
+      const data = (await response.json()) as { orderId?: string; message?: string };
       cart.clear();
-      return { ok: true, message: `Pedido ${data.orderId} confirmado e enviado para a cozinha.` };
+      return { ok: true, message: data.message || "Pedido confirmado e enviado para a cozinha." };
     } catch {
       return { ok: false, message: "Não foi possível salvar o pedido. Verifique sua conexão e tente novamente." };
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-950 text-white">
+        <p className="text-xl font-medium animate-pulse">Carregando o cardápio do banco de dados...</p>
+      </div>
+    );
   }
 
   return (
@@ -88,7 +141,11 @@ export default function App() {
       />
       <main>
         <Hero />
-        <CategoryTabs activeCategory={activeCategory} onSelect={handleSelectCategory} />
+        <CategoryTabs 
+          categories={categories} 
+          activeCategory={activeCategory} 
+          onSelect={handleSelectCategory} 
+        />
         <MenuGrid
           heading={heading}
           note={note}
