@@ -1,555 +1,585 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#4285F4" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <title>Laguna Plaza & Mandi | Next-Gen Hospitality</title>
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            google: {
-              blue: '#4285F4',
-              red: '#EA4335',
-              yellow: '#FBBC05',
-              green: '#34A853'
+<html lang="pt-BR" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Next-Gen Hospitality Menu | Laguna Plaza & Mandi</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              google: { blue: '#4285F4', red: '#EA4335', yellow: '#FBBC05', green: '#34A853' }
             }
-          },
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif']
-          },
-          boxShadow: {
-            '3d': '0 8px 0 rgba(0,0,0,0.15), 0 12px 24px rgba(0,0,0,0.12)',
-            '3d-active': '0 2px 0 rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.1)',
-            'glass': '0 20px 40px -15px rgba(66,133,244,0.25), 0 0 0 1px rgba(255,255,255,0.6)'
           }
         }
       }
-    }
-  </script>
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Lucide Icons & Canvas Confetti -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+      body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050b14; color: #f8fafc; overflow-x: hidden; }
+      
+      .glass-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.9));
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 20px rgba(66, 133, 244, 0.15);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+      }
+      .glass-card:hover {
+        transform: translateY(-6px) scale(1.01);
+        border-color: rgba(66, 133, 244, 0.5);
+        box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(66, 133, 244, 0.3);
+      }
 
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      background: linear-gradient(135deg, #f0f7ff 0%, #fff8f0 40%, #f0fff4 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+      .btn-3d {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 6px 0 rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 0, 0, 0.4);
+        border-radius: 9999px;
+        font-weight: 700;
+      }
+      .btn-3d:active {
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.5), 0 4px 10px rgba(0, 0, 0, 0.4);
+      }
 
-    .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 20px 40px -12px rgba(66, 133, 244, 0.18), 0 0 0 1px rgba(255,255,255,0.7);
-      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .glass-card:hover {
-      transform: translateY(-6px) scale(1.015);
-      box-shadow: 0 30px 50px -15px rgba(66, 133, 244, 0.28), 0 0 0 1px rgba(66,133,244,0.2);
-    }
+      @keyframes googleGlow {
+        0% { border-color: #4285F4; box-shadow: 0 0 15px rgba(66,133,244,0.4); }
+        25% { border-color: #EA4335; box-shadow: 0 0 15px rgba(234,67,53,0.4); }
+        50% { border-color: #FBBC05; box-shadow: 0 0 15px rgba(251,188,5,0.4); }
+        75% { border-color: #34A853; box-shadow: 0 0 15px rgba(52,168,83,0.4); }
+        100% { border-color: #4285F4; box-shadow: 0 0 15px rgba(66,133,244,0.4); }
+      }
+      .google-border-glow {
+        animation: googleGlow 6s infinite;
+      }
 
-    .btn-3d {
-      border-radius: 9999px;
-      font-weight: 700;
-      transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 6px 0 rgba(0,0,0,0.12), 0 10px 20px rgba(0,0,0,0.1);
-      position: relative;
-      top: 0;
-    }
-    .btn-3d:active {
-      top: 4px;
-      box-shadow: 0 2px 0 rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
-    }
+      /* Estilo para Impressão do Voucher */
+      @media print {
+        body * { visibility: hidden; }
+        #printable-voucher, #printable-voucher * { visibility: visible; }
+        #printable-voucher { position: absolute; left: 0; top: 0; width: 100%; }
+      }
 
-    .google-border {
-      border: 3px solid transparent;
-      background: linear-gradient(white, white) padding-box,
-                  linear-gradient(90deg, #4285F4, #EA4335, #FBBC05, #34A853) border-box;
-    }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #050b14; }
+      ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    </style>
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased min-h-screen selection:bg-google-blue selection:text-white">
 
-    @keyframes pulse-green {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    .live-dot { animation: pulse-green 1.5s infinite; }
+    <!-- Top Google-Colored Accent Bar -->
+    <div class="h-2 w-full bg-gradient-to-r from-google-blue via-google-red via-google-yellow to-google-green fixed top-0 z-50"></div>
 
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-
-    .menu-img {
-      transition: transform 0.5s ease;
-    }
-    .group:hover .menu-img {
-      transform: scale(1.08);
-    }
-  </style>
-</head>
-<body class="text-slate-800 antialiased">
-
-  <!-- Google Accent Bar -->
-  <div class="h-1.5 w-full bg-gradient-to-r from-google-blue via-google-red via-google-yellow to-google-green fixed top-0 z-50"></div>
-
-  <div id="app" class="max-w-7xl mx-auto px-4 py-5 md:py-8 flex flex-col min-h-screen">
-
-    <!-- HEADER -->
-    <header class="glass-card rounded-3xl p-5 md:p-6 mb-6 flex flex-col md:flex-row justify-between items-center gap-5 google-border">
-      <div class="flex items-center gap-4">
-        <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-google-blue via-google-red to-google-yellow flex items-center justify-center text-white text-xl font-black shadow-lg shadow-blue-500/30">
+    <!-- ================= TELA 1: AUTENTICAÇÃO DE ATENDENTE / GARÇOM ================= -->
+    <div id="auth-screen" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-4">
+      <div class="glass-card p-8 rounded-3xl max-w-md w-full space-y-6 text-center google-border-glow">
+        <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-google-blue via-google-red to-google-yellow flex items-center justify-center text-white text-3xl font-black mx-auto shadow-xl shadow-blue-500/30">
           LP
         </div>
         <div>
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 bg-google-green rounded-full live-dot"></span>
-            <span class="text-[11px] font-bold tracking-widest text-google-blue uppercase">Enterprise Hospitality</span>
-          </div>
-          <h1 class="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">Laguna Plaza & Mandi</h1>
-          <p class="text-xs text-slate-500">Cardápio Completo · PNR Express · NFC/QR</p>
+          <h2 class="text-2xl font-black text-white">Laguna Plaza & Mandi</h2>
+          <p class="text-xs text-slate-400 mt-1">Insira seu código de acesso ou senha (Garçom / Recepção)</p>
         </div>
-      </div>
-
-      <div class="flex flex-wrap gap-2 bg-white/80 p-1.5 rounded-full border border-slate-200 shadow-inner">
-        <button onclick="switchTab('airline')" id="tab-btn-airline" class="btn-3d px-4 py-2.5 text-xs bg-google-blue text-white flex items-center gap-1.5">
-          <i data-lucide="plane" class="w-3.5 h-3.5"></i> Companhias & PNR
-        </button>
-        <button onclick="switchTab('menu')" id="tab-btn-menu" class="btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center gap-1.5">
-          <i data-lucide="utensils" class="w-3.5 h-3.5"></i> Cardápio
-        </button>
-        <button onclick="switchTab('qrcode')" id="tab-btn-qrcode" class="btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center gap-1.5">
-          <i data-lucide="qr-code" class="w-3.5 h-3.5"></i> QR & NFC
-        </button>
-      </div>
-    </header>
-
-    <main class="flex-1">
-
-      <!-- ========== MÓDULO 1: COMPANHIAS & PNR ========== -->
-      <section id="section-airline" class="space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          <div class="lg:col-span-5 space-y-5">
-            <div class="inline-flex items-center gap-2 bg-google-blue/10 border border-google-blue/30 px-3 py-1 rounded-full text-google-blue text-xs font-bold">
-              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Superior ao Desbravador · Redis + Crypto
-            </div>
-            <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
-              Gestão de Tripulações<br>
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-google-blue via-google-red to-google-yellow">& Layover Instantâneo</span>
-            </h2>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Integração direta com LATAM, GOL, AZUL, TAP e American Airlines. Voucher criptografado, alocação de quarto em &lt;10ms e atendimento preferencial no Restaurante Mandi.
-            </p>
-            <div class="grid grid-cols-3 gap-3">
-              <div class="glass-card p-3 rounded-2xl text-center">
-                <p class="text-xl font-black text-google-green">&lt;8ms</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">API Response</p>
-              </div>
-              <div class="glass-card p-3 rounded-2xl text-center">
-                <p class="text-xl font-black text-google-yellow">100%</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">LGPD</p>
-              </div>
-              <div class="glass-card p-3 rounded-2xl text-center">
-                <p class="text-xl font-black text-google-blue">NFC/QR</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">Keyless</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="lg:col-span-7 glass-card p-5 md:p-7 rounded-3xl">
-            <div class="flex items-center justify-between mb-5">
-              <h3 class="font-bold text-slate-900">Emissão Expressa de Voucher PNR</h3>
-              <span class="text-[10px] font-mono bg-google-green/15 text-google-green px-2.5 py-1 rounded-full border border-google-green/30">Redis Active</span>
-            </div>
-
-            <form id="pnr-form" onsubmit="handlePNRSubmit(event)" class="space-y-4">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600 mb-1">Companhia Aérea</label>
-                  <select id="pnr-airline" class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-google-blue/40">
-                    <option value="LATAM">LATAM Airlines</option>
-                    <option value="GOL">GOL Linhas Aéreas</option>
-                    <option value="AZUL">AZUL</option>
-                    <option value="TAP">TAP Air Portugal</option>
-                    <option value="AMERICAN">American Airlines</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600 mb-1">Código PNR / Reserva</label>
-                  <input type="text" id="pnr-code" required placeholder="Ex: K89XPL" class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm uppercase font-mono focus:outline-none focus:ring-2 focus:ring-google-blue/40" />
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Completo</label>
-                <input type="text" id="pnr-name" required placeholder="Ex: Cristian Ribeiro Florêncio" class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-google-blue/40" />
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600 mb-1">Documento (CPF / Passaporte)</label>
-                  <input type="text" id="pnr-doc" required placeholder="000.000.000-00" class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-google-blue/40" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600 mb-1">Categoria</label>
-                  <select id="pnr-type" class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-google-blue/40">
-                    <option value="CREW">Tripulação / Comissários</option>
-                    <option value="PAX_VIP">Passageiro VIP / Conexão</option>
-                    <option value="PAX_STANDARD">Passageiro Standard Layover</option>
-                  </select>
-                </div>
-              </div>
-              <button type="submit" class="btn-3d w-full bg-gradient-to-r from-google-blue via-google-red to-google-yellow text-white font-extrabold py-3.5 text-sm tracking-wide mt-1">
-                Processar Voucher & Alocar Quarto
-              </button>
-            </form>
-
-            <div id="pnr-success-box" class="hidden mt-5 p-4 bg-google-green/5 border border-google-green/30 rounded-2xl space-y-2">
-              <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-google-green/20 flex items-center justify-center text-google-green font-bold">✓</div>
-                <div>
-                  <p class="text-xs font-mono text-google-green font-bold">Voucher Criptografado Emitido</p>
-                  <p id="out-voucher-id" class="text-sm font-bold text-slate-900"></p>
-                </div>
-              </div>
-              <div class="text-xs text-slate-500 font-mono pt-2 border-t border-slate-200 space-y-1">
-                <p>URL: <span id="out-url" class="text-google-blue break-all"></span></p>
-                <p>Token: <span id="out-token" class="text-slate-600 break-all text-[10px]"></span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========== MÓDULO 2: CARDÁPIO COMPLETO ========== -->
-      <section id="section-menu" class="hidden space-y-5">
-        <div class="glass-card p-4 md:p-5 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <form onsubmit="handleAuth(event)" class="space-y-4">
           <div>
-            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <i data-lucide="utensils-crossed" class="text-google-yellow w-5 h-5"></i>
-              Cardápio Completo Mandi
-            </h2>
-            <p class="text-xs text-slate-500 mt-0.5">Todos os itens oficiais · Fotos reais · Guarnições completas</p>
+            <input type="password" id="auth-pin" required placeholder="Código do Atendente (Ex: 1234)" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-center text-lg text-white font-mono tracking-widest focus:outline-none focus:border-google-blue" />
           </div>
-          <div class="flex items-center gap-2 w-full md:w-auto">
-            <div class="relative flex-1 md:w-56">
-              <i data-lucide="search" class="absolute left-3.5 top-3 w-4 h-4 text-slate-400"></i>
-              <input type="text" id="menu-search" oninput="filterMenu(this.value)" placeholder="Buscar prato, drink..." class="w-full bg-white border border-slate-200 rounded-full pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-google-blue/30" />
-            </div>
-            <button onclick="openCartModal()" class="btn-3d bg-google-yellow text-slate-900 px-4 py-2.5 text-sm flex items-center gap-1.5 whitespace-nowrap">
-              <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-              <span id="cart-counter">0</span>
-            </button>
-          </div>
-        </div>
-
-        <div id="category-container" class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide"></div>
-        <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-      </section>
-
-      <!-- ========== MÓDULO 3: QR & NFC ========== -->
-      <section id="section-qrcode" class="hidden max-w-lg mx-auto text-center space-y-6">
-        <div class="glass-card p-8 rounded-3xl space-y-5">
-          <div class="w-16 h-16 bg-google-blue/10 rounded-2xl mx-auto flex items-center justify-center text-google-blue">
-            <i data-lucide="qr-code" class="w-8 h-8"></i>
-          </div>
-          <h2 class="text-2xl font-extrabold text-slate-900">QR Code Dinâmico</h2>
-          <p class="text-sm text-slate-600">Escaneie para abrir o cardápio instantaneamente ou aproxime o celular com NFC.</p>
-          <div class="bg-white p-5 rounded-2xl inline-block shadow-lg">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://ws.droppfy.com/cardapio-laguna" alt="QR Code" class="mx-auto rounded-lg" />
-            <p class="text-[10px] font-mono font-bold text-slate-700 mt-2">ws.droppfy.com/cardapio-laguna</p>
-          </div>
-          <button onclick="triggerConfetti()" class="btn-3d bg-google-green text-white px-6 py-3 text-sm flex items-center gap-2 mx-auto">
-            <i data-lucide="smartphone-nfc" class="w-4 h-4"></i> Testar NFC
+          <button type="submit" class="btn-3d w-full bg-gradient-to-r from-google-blue via-google-red to-google-yellow text-slate-950 font-extrabold py-3.5 text-sm">
+            Iniciar Atendimento & Sistema
           </button>
-        </div>
-      </section>
-    </main>
-
-    <footer class="border-t border-slate-200/80 pt-5 mt-10 text-center text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-3">
-      <p>© 2026 Laguna Plaza Hotel & Restaurante Mandi · US + Israel Tech Stack</p>
-      <div class="flex gap-4 font-mono text-[11px]">
-        <span class="text-google-green">● Redis</span>
-        <span class="text-google-blue">● Cloudflare</span>
-        <span class="text-google-yellow">● 3D UI</span>
-      </div>
-    </footer>
-  </div>
-
-  <!-- CART MODAL -->
-  <div id="cart-modal" class="fixed inset-0 z-50 bg-black/40 hidden justify-end backdrop-blur-sm">
-    <div class="w-full max-w-md bg-white h-full p-5 flex flex-col border-l border-slate-200 shadow-2xl">
-      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-        <h2 class="font-bold text-lg text-slate-900 flex items-center gap-2">
-          <i data-lucide="shopping-bag" class="w-5 h-5 text-google-yellow"></i> Seu Pedido
-        </h2>
-        <button onclick="closeCartModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">✕</button>
-      </div>
-      <div id="cart-items-list" class="mt-4 space-y-3 flex-1 overflow-y-auto"></div>
-      <div class="space-y-3 pt-4 border-t border-slate-100">
-        <div class="flex justify-between items-center font-bold text-lg">
-          <span>Total (+10% taxa)</span>
-          <span id="cart-total-price" class="text-google-green">R$ 0,00</span>
-        </div>
-        <button onclick="confirmOrder()" class="btn-3d w-full bg-google-green text-white py-3.5 text-sm">
-          Enviar para Cozinha / Quarto
-        </button>
+        </form>
+        <p class="text-[10px] text-slate-500 font-mono">Padrão de Segurança Hospedagem v2.6 · Use qualquer PIN numérico</p>
       </div>
     </div>
-  </div>
 
-  <script>
-    lucide.createIcons();
-
-    // ========== CATEGORIES ==========
-    const categories = [
-      { id: 'all', title: '✨ Todos' },
-      { id: 'entradas', title: '🥟 Entradas & Sopas' },
-      { id: 'principais', title: '🥩 Pratos Principais' },
-      { id: 'grelhados', title: '🔥 Grelhados' },
-      { id: 'petiscos', title: '🍢 Petiscos' },
-      { id: 'massas', title: '🍝 Massas' },
-      { id: 'pizzas', title: '🍕 Pizzas' },
-      { id: 'hamburgueres', title: '🍔 Hambúrgueres' },
-      { id: 'executivo', title: '✈️ Menu Executivo' },
-      { id: 'bebidas', title: '🍹 Drinks & Bebidas' },
-      { id: 'sobremesas', title: '🍨 Sobremesas' }
-    ];
-
-    // ========== COMPLETE MENU (ALL ITEMS FROM PDFs) ==========
-    const menuItems = [
-      // ENTRADAS
-      { id:'e1', category_id:'entradas', name:'Antepasto de Berinjela', description:'Acompanhado de torradas crocantes.', price:10.00, image:'https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=600&q=80' },
-      { id:'e2', category_id:'entradas', name:'Caesar Salad', description:'Alfaces variadas, molho clássico caesar, croutons, peito de frango grelhado com tomilho, alecrim e queijo parmesão ralado.', price:37.00, image:'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&w=600&q=80' },
-      { id:'e3', category_id:'entradas', name:'Bruschetas Caprese', description:'Fatias de pão temperadas ao alho e azeite, molho de tomate caseiro, tomate cereja, queijo Mussarela, manjericão, finalizado ao forno.', price:35.00, image:'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=600&q=80' },
-      { id:'e4', category_id:'entradas', name:'Croquete de Costela', description:'Costela desfiada com próprio caldo, empanada na farinha panko, acompanhada com maionese da casa.', price:28.00, image:'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80' },
-      { id:'e5', category_id:'entradas', name:'Omelete Tradicional', description:'3 ovos batidos levemente, acompanhado de presunto, queijo muçarela, orégano e salada da casa.', price:30.00, image:'https://images.unsplash.com/photo-1510693206972-df098062cb71?auto=format&fit=crop&w=600&q=80' },
-      { id:'e6', category_id:'entradas', name:'Salada Mandi', description:'Mix de folhas frescas, tomate cereja, tomate seco assado, pepino, picles caseiros de cenoura e rabanete, manga e folhas de manjericão.', price:32.00, image:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80' },
-      { id:'e7', category_id:'entradas', name:'Minestrone', description:'Sopa de cubos de filé, cenoura, vagem, abobrinha, caldo de legumes, molho de tomate, finalizada com espaguete, tomate cereja e manjericão.', price:43.00, image:'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80' },
-      { id:'e8', category_id:'entradas', name:'Canja de Galinha', description:'Sopa de legumes, pedaços de frango, finalizada com caldo de galinha, arroz e salsa.', price:45.00, image:'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80' },
-      { id:'e9', category_id:'entradas', name:'Omelete de Legumes', description:'3 ovos batidos levemente, acompanhado de cenoura, vagem, abobrinha, queijo muçarela, orégano e salada da casa.', price:35.00, image:'https://images.unsplash.com/photo-1510693206972-df098062cb71?auto=format&fit=crop&w=600&q=80' },
-
-      // PRINCIPAIS
-      { id:'p1', category_id:'principais', name:'Carne de Sol Tambaú', description:'Deliciosa carne de sol, servida com mandioca frita, arroz branco e vinagrete de feijão fradinho, acompanhada de queijo coalho grelhado.', price:62.00, image:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
-      { id:'p2', category_id:'principais', name:'Parmegiana de Filé', description:'Filé empanado em crosta de panko, coberto com presunto, queijo derretido e molho de tomate, com purê de batata e arroz branco.', price:62.00, image:'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=600&q=80' },
-      { id:'p3', category_id:'principais', name:'Parmegiana de Frango', description:'Filé de frango empanado crocante, presunto, queijo derretido e molho de tomate, com purê de batata e arroz branco.', price:48.00, image:'https://images.unsplash.com/photo-1604908176997-125f2596f3ed?auto=format&fit=crop&w=600&q=80' },
-      { id:'p4', category_id:'principais', name:'Virado à Paulista', description:'Clássico lombo suíno grelhado, arroz branco, tutu de feijão, ovo frito, couve refogada e banana frita.', price:59.00, image:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80' },
-      { id:'p5', category_id:'principais', name:'Filé de Tilápia ao Molho de Maracujá', description:'Filé de tilápia com molho de maracujá e manjericão, arroz branco e legumes salteados ao aroma de limão e ervas.', price:62.00, image:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80' },
-      { id:'p6', category_id:'principais', name:'Filé Mignon Grelhado', description:'Acompanhado ao molho madeira e um delicioso arroz cremoso de parmesão.', price:65.00, image:'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
-      { id:'p7', category_id:'principais', name:'Moqueca de Peixe e Camarão', description:'Postas de tilápia e camarões ao alho e limão, cozidos lentamente ao molho da tradicional moqueca baiana, com arroz e pirão.', price:79.00, image:'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80' },
-      { id:'p8', category_id:'principais', name:'Camarão Scampi', description:'Camarões suculentos ao alho, vinho branco e limão, servidos com espaguete al dente, tomate cereja, salsa e toque de pimenta vermelha.', price:109.00, image:'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80' },
-      { id:'p9', category_id:'principais', name:'Moqueca de Banana e Grão de Bico', description:'Banana da terra e grão de bico cozidos ao molho da tradicional moqueca baiana, servido com arroz branco.', price:55.00, image:'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80' },
-      { id:'p10', category_id:'principais', name:'Strogonoff de Filé', description:'Picadinho de filé mignon, creme de leite, mostarda, ketchup e champignon, servido com arroz branco e batata palha da casa.', price:58.00, image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80' },
-      { id:'p11', category_id:'principais', name:'Strogonoff de Frango', description:'Cubos de frango, creme de leite, mostarda, ketchup e champignon, servido com arroz branco e batata palha da casa.', price:48.00, image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80' },
-      { id:'p12', category_id:'principais', name:'Arroz Caldoso de Costela', description:'Arroz branco acompanhado de costela desfiada ao molho próprio, tomate cereja, manjericão e cebola crispy.', price:57.00, image:'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=600&q=80' },
-
-      // GRELHADOS (todos + guarnições)
-      { id:'g1', category_id:'grelhados', name:'T-Bone Angus', description:'Escolha 3 guarnições e 1 molho (Campanha, Barbecue, Chimichurri, Ervas & Limão ou Poivre).', price:130.00, image:'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80' },
-      { id:'g2', category_id:'grelhados', name:'Carne de Sol', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:69.00, image:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
-      { id:'g3', category_id:'grelhados', name:'Assado de Tira Angus', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:89.00, image:'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
-      { id:'g4', category_id:'grelhados', name:'Picanha', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:89.00, image:'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
-      { id:'g5', category_id:'grelhados', name:'Baby Beef Angus', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:89.00, image:'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80' },
-      { id:'g6', category_id:'grelhados', name:'Lombo Suíno', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:69.00, image:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80' },
-      { id:'g7', category_id:'grelhados', name:'Chuleta Angus', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:85.00, image:'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80' },
-      { id:'g8', category_id:'grelhados', name:'Peito de Frango', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:49.00, image:'https://images.unsplash.com/photo-1604908176997-125f2596f3ed?auto=format&fit=crop&w=600&q=80' },
-      { id:'g9', category_id:'grelhados', name:'Tornedor de Filé Mignon', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:81.00, image:'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
-      { id:'g10', category_id:'grelhados', name:'Veggie Steak', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:38.00, image:'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80' },
-      { id:'g11', category_id:'grelhados', name:'Bife Ancho', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:75.00, image:'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80' },
-      { id:'g12', category_id:'grelhados', name:'Filé de Tilápia', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:69.00, image:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80' },
-      { id:'g13', category_id:'grelhados', name:'Contrafilé', description:'Escolha 3 guarnições e 1 molho de sua preferência.', price:75.00, image:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
-
-      // PETISCOS
-      { id:'pt1', category_id:'petiscos', name:'Carne de Sol com Mandioca', description:'Carne de sol grelhada, com mandioca cozida ou frita na manteiga de garrafa.', price:71.00, image:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
-      { id:'pt2', category_id:'petiscos', name:'Fish n\' Chips / Fish, Shrimp and Chips', description:'Filé de tilápia e camarões empanados, servidos com batata rústica e molho tártaro aromático.', price:87.00, image:'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80' },
-      { id:'pt3', category_id:'petiscos', name:'Camarão Empanado', description:'Camarões empanados na farinha panko acompanhado com maionese de limão pepper.', price:66.00, image:'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80' },
-      { id:'pt4', category_id:'petiscos', name:'Frango à Passarinho', description:'Pedaços de frango marinados, cozidos e fritos, finalizados ao olho e fatias de limão.', price:44.00, image:'https://images.unsplash.com/photo-1604908176997-125f2596f3ed?auto=format&fit=crop&w=600&q=80' },
-      { id:'pt5', category_id:'petiscos', name:'Pão de Alho', description:'Baguete recheada com creme de alho da casa, finalizado com queijo muçarela e salsa.', price:33.00, image:'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=600&q=80' },
-      { id:'pt6', category_id:'petiscos', name:'Batata Mandi', description:'Batata rústica com bastante queijo derretido, páprica defumada, cebola caramelizada e bacon.', price:38.00, image:'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80' },
-      { id:'pt7', category_id:'petiscos', name:'Calabresa Grelhada', description:'Calabresa grelhada com pimentões, cebolas, finalizados ao toque de azeite e limão.', price:38.00, image:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
-
-      // MASSAS
-      { id:'m1', category_id:'massas', name:'Espaguete / Penne / Talharim ao Molho Bolognese', description:'Massa escolhida envolvida em molho de carne italiano robusto, carne moída refogada lentamente em base de tomates frescos, cebola e alho.', price:49.00, image:'https://images.unsplash.com/photo-1621996346565-e3d5d6281298?auto=format&fit=crop&w=600&q=80' },
-      { id:'m2', category_id:'massas', name:'Espaguete / Penne / Talharim ao Molho Sugo', description:'Massa escolhida preparada com tomates frescos, ervas aromáticas e um toque de alho.', price:45.00, image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80' },
-      { id:'m3', category_id:'massas', name:'Espaguete / Penne / Talharim ao Molho Parisiense', description:'Combinação de cogumelos, cubos de filé de frango, ervilhas frescas, fatias de presunto ao molho bechamel e temperos selecionados.', price:49.00, image:'https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=600&q=80' },
-
-      // PIZZAS
-      { id:'pz1', category_id:'pizzas', name:'Pizza Marguerita', description:'Molho pomodoro, tomate fresco, tomate cereja, manjericão e queijo muçarela.', price:49.00, image:'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz2', category_id:'pizzas', name:'Pizza Frango com Catupiry', description:'Molho pomodoro, frango desfiado, queijo muçarela, catupiry e orégano.', price:56.00, image:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz3', category_id:'pizzas', name:'Pizza Calabresa', description:'Molho pomodoro, calabresa fatiada, cebola, orégano e queijo muçarela.', price:46.00, image:'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz4', category_id:'pizzas', name:'Pizza Pepperoni', description:'Molho pomodoro, pepperoni, pimenta calabresa, cebola roxa, orégano e queijo muçarela.', price:61.00, image:'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz5', category_id:'pizzas', name:'Pizza 4 Stagioni Formaggi', description:'Molho pomodoro, queijo muçarela, cheddar, parmesão, gorgonzola e orégano.', price:71.00, image:'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz6', category_id:'pizzas', name:'Pizza Portuguesa', description:'Molho pomodoro, presunto ralado, cebola roxa, pimentão verde, queijo muçarela, ovo e orégano.', price:56.00, image:'https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz7', category_id:'pizzas', name:'Pizza Muçarela', description:'Molho pomodoro, queijo muçarela e orégano.', price:42.00, image:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz8', category_id:'pizzas', name:'Pizza Gorgonzola', description:'Molho pomodoro, queijo gorgonzola, queijo muçarela, rapadura e pimenta calabresa.', price:70.00, image:'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz9', category_id:'pizzas', name:'Pizza Doce Banana', description:'Queijo muçarela, açúcar e canela em pó.', price:46.00, image:'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80' },
-      { id:'pz10', category_id:'pizzas', name:'Pizza Doce Prestígio', description:'Queijo muçarela, chocolate meio amargo e coco ralado.', price:69.00, image:'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80' },
-
-      // HAMBÚRGUERES
-      { id:'h1', category_id:'hamburgueres', name:'Misto Quente', description:'Pão de forma, queijo muçarela e presunto.', price:15.00, image:'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80' },
-      { id:'h2', category_id:'hamburgueres', name:'Laguna Burger', description:'Pão de hambúrguer, blend de carnes 140g, queijo muçarela e maionese da casa.', price:39.00, image:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80' },
-      { id:'h3', category_id:'hamburgueres', name:'Sanduíche de Filé', description:'Pão de hambúrguer, filé mignon, tomate, alface, queijo muçarela e maionese da casa.', price:48.00, image:'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80' },
-      { id:'h4', category_id:'hamburgueres', name:'Manito Burger', description:'Pão de hambúrguer, blend de carne 140g, queijo cheddar, bacon, cebola caramelizada e maionese da casa.', price:44.00, image:'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=600&q=80' },
-      { id:'h5', category_id:'hamburgueres', name:'DLB Burger', description:'Pão de hambúrguer, dois blends de carne 140g, queijo muçarela, bacon e maionese da casa.', price:49.00, image:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80' },
-      { id:'h6', category_id:'hamburgueres', name:'Philly CSK', description:'Baguete, finas fatias de carne, cebola caramelizada, queijo muçarela e maionese da casa.', price:45.00, image:'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80' },
-      { id:'h7', category_id:'hamburgueres', name:'X-Tudo', description:'Pão de hambúrguer, blend 140g, muçarela, ovo frito, presunto, salsicha, alface, tomate, bacon e maionese da casa.', price:48.00, image:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80' },
-      { id:'h8', category_id:'hamburgueres', name:'Sanduíche Filé de Frango', description:'Pão de hambúrguer, peito de frango grelhado, alface, tomate, queijo muçarela e maionese da casa.', price:35.00, image:'https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=600&q=80' },
-      { id:'h9', category_id:'hamburgueres', name:'Veggie Sandwich', description:'Pão francês, steak vegano 140g, alface, tomate, picles caseiros, cebola caramelizada, hortelã e maionese vegana.', price:32.00, image:'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80' },
-
-      // MENU EXECUTIVO
-      { id:'ex1', category_id:'executivo', name:'Executivo: Penne alla Bolognese', description:'Acompanha bebida não alcoólica. Penne cozido ao molho de tomate e ragú bolognese, com manjericão e muçarela.', price:55.00, image:'https://images.unsplash.com/photo-1621996346565-e3d5d6281298?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex2', category_id:'executivo', name:'Executivo: Steak ao Molho Poivre', description:'Acompanha bebida não alcoólica. Bife bovino grelhado com molho de pimenta verde, purê de batata e legumes salteados.', price:68.00, image:'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex3', category_id:'executivo', name:'Executivo: Contrafilé à Brasileira', description:'Acompanha bebida não alcoólica. Contrafilé grelhado, arroz branco, farofa de cebola e batata frita.', price:60.00, image:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex4', category_id:'executivo', name:'Executivo: Peito de Frango à Brasileira', description:'Acompanha bebida não alcoólica. Frango grelhado, arroz branco, farofa de cebola e batata frita.', price:48.00, image:'https://images.unsplash.com/photo-1604908176997-125f2596f3ed?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex5', category_id:'executivo', name:'Executivo: Estrogonofe de Frango', description:'Acompanha bebida não alcoólica. Cubos de frango com cogumelos, creme de leite, mostarda, ketchup, arroz e batata palha.', price:52.00, image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex6', category_id:'executivo', name:'Executivo: Salada Mandi com Frango Grelhado', description:'Acompanha bebida não alcoólica. Mix de folhas, picles, tomate cereja, manga e frango grelhado com ervas ao molho citronete.', price:45.00, image:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex7', category_id:'executivo', name:'Executivo: Filé de Tilápia ao Molho de Maracujá', description:'Acompanha bebida não alcoólica. Tilápia com molho de maracujá, arroz branco e legumes salteados.', price:65.00, image:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex8', category_id:'executivo', name:'Executivo: Laguna Burger (Combo)', description:'Acompanha bebida não alcoólica e batata frita. Blend de 180g, muçarela e maionese da casa.', price:49.00, image:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex9', category_id:'executivo', name:'Executivo: Sanduíche de Contrafilé (Combo)', description:'Acompanha bebida não alcoólica e batata frita. Contrafilé fatiado, cebola caramelizada e muçarela.', price:54.00, image:'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80' },
-      { id:'ex10', category_id:'executivo', name:'Executivo: Hambúrguer de Frango (Combo)', description:'Acompanha bebida não alcoólica e batata frita. Frango grelhado, alface, tomate e muçarela.', price:42.00, image:'https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=600&q=80' },
-
-      // DRINKS & BEBIDAS
-      { id:'d1', category_id:'bebidas', name:'Caipirinha', description:'Feita com cachaça, limão e açúcar.', price:25.00, image:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80' },
-      { id:'d2', category_id:'bebidas', name:'Caipiroska', description:'Vodka com escolha de frutas da estação (consulte sabores).', price:29.00, image:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80' },
-      { id:'d3', category_id:'bebidas', name:'Margarita', description:'Tequila, licor de laranja e suco de limão fresco. Servido com sal na borda.', price:30.00, image:'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=600&q=80' },
-      { id:'d4', category_id:'bebidas', name:'Gin Tônica', description:'Gin, limão, água tônica e gelo.', price:30.00, image:'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80' },
-      { id:'d5', category_id:'bebidas', name:'Cuba Libre', description:'Rum, refrigerante de cola e limão.', price:30.00, image:'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=600&q=80' },
-      { id:'d6', category_id:'bebidas', name:'Mojito', description:'Rum, suco de limão, açúcar, folhas de hortelã e água com gás.', price:31.00, image:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80' },
-      { id:'d7', category_id:'bebidas', name:'Brasileirinho', description:'Vodka, suco de abacaxi, xarope blue, suco de laranja e gelo.', price:30.00, image:'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=600&q=80' },
-      { id:'d8', category_id:'bebidas', name:'Gin Fizz', description:'Gin, suco de limão, açúcar, refrigerante de limão e gelo.', price:30.00, image:'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80' },
-      { id:'d9', category_id:'bebidas', name:'Cozumel', description:'Suco de limão, sal, gelo, cerveja e borda de sal.', price:25.00, image:'https://images.unsplash.com/photo-1608270105740-972173f4439c?auto=format&fit=crop&w=600&q=80' },
-      { id:'d10', category_id:'bebidas', name:'Irish Coffee', description:'Whisky, café quente, açúcar, creme de leite aromatizado com baunilha e grãos de café.', price:33.00, image:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80' },
-      { id:'d11', category_id:'bebidas', name:'Gin Tropical', description:'Gin, laranja, gelo e Red Bull tropical.', price:35.00, image:'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80' },
-      { id:'d12', category_id:'bebidas', name:'Piña Colada', description:'Rum, suco de abacaxi, leite de coco, leite condensado e gelo.', price:31.00, image:'https://images.unsplash.com/photo-1541491745230-f3a74288d1d8?auto=format&fit=crop&w=600&q=80' },
-      { id:'d13', category_id:'bebidas', name:'Campari Tônica', description:'Campari, água tônica, gelo e rodelas de limão.', price:30.00, image:'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80' },
-      { id:'d14', category_id:'bebidas', name:'Caipifrutas', description:'Gin, no máximo 3 frutas, leite condensado e gelo (consulte sabores).', price:33.00, image:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80' },
-      { id:'d15', category_id:'bebidas', name:'Água de Coco', description:'Natural e gelada.', price:9.00, image:'https://images.unsplash.com/photo-1546173158-3bc55032bbf2?auto=format&fit=crop&w=600&q=80' },
-      { id:'d16', category_id:'bebidas', name:'Água Mineral (Com ou Sem Gás)', description:'Garrafa 500ml.', price:6.00, image:'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80' },
-      { id:'d17', category_id:'bebidas', name:'Cerveja Heineken 600ml', description:'Trincando de gelada.', price:19.00, image:'https://images.unsplash.com/photo-1608270105740-972173f4439c?auto=format&fit=crop&w=600&q=80' },
-      { id:'d18', category_id:'bebidas', name:'Cerveja Stella Artois 600ml', description:'Gelada.', price:19.00, image:'https://images.unsplash.com/photo-1608270105740-972173f4439c?auto=format&fit=crop&w=600&q=80' },
-      { id:'d19', category_id:'bebidas', name:'Cerveja Long Neck Heineken / Budweiser', description:'Garrafa 330ml.', price:12.00, image:'https://images.unsplash.com/photo-1608270105740-972173f4439c?auto=format&fit=crop&w=600&q=80' },
-      { id:'d20', category_id:'bebidas', name:'Café Expresso', description:'Quente e encorpado.', price:5.00, image:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80' },
-      { id:'d21', category_id:'bebidas', name:'Red Bull Energy Drink', description:'Lata 250ml.', price:23.00, image:'https://images.unsplash.com/photo-1622543925917-763c33d1a66e?auto=format&fit=crop&w=600&q=80' },
-      { id:'d22', category_id:'bebidas', name:'Refrigerante em Lata', description:'Coca-cola, Zero, Schweppes, Sprite, Fanta, Guaraná Antártica.', price:8.00, image:'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80' },
-      { id:'d23', category_id:'bebidas', name:'Suco Natural ou Polpa', description:'Laranja, abacaxi, limão, maracujá, morango, acerola, uva, caju, manga, etc.', price:12.00, image:'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80' },
-      { id:'d24', category_id:'bebidas', name:'Jarra de Suco 750ml', description:'Natural ou polpa para compartilhar.', price:20.00, image:'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80' },
-
-      // SOBREMESAS
-      { id:'s1', category_id:'sobremesas', name:'Tradicional Pudim de Leite Condensado', description:'Pudim cremoso de leite condensado com calda de caramelo.', price:25.00, image:'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=600&q=80' },
-      { id:'s2', category_id:'sobremesas', name:'Brownie com Sorvete', description:'Fatia de brownie artesanal servido com sorvete de creme e calda de chocolate.', price:30.00, image:'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80' },
-      { id:'s3', category_id:'sobremesas', name:'Sorvetes (Bola)', description:'Opções: Morango, Creme ou Chocolate.', price:19.00, image:'https://images.unsplash.com/photo-1560008511-11c63416e52d?auto=format&fit=crop&w=600&q=80' },
-      { id:'s4', category_id:'sobremesas', name:'Banana Flambada', description:'Banana caramelizada, flambada no conhaque, acompanhada com sorvete de creme.', price:28.00, image:'https://images.unsplash.com/photo-1543773292-66384fa6e3d7?auto=format&fit=crop&w=600&q=80' }
-    ];
-
-    let currentCategory = 'all';
-    let cart = [];
-
-    function switchTab(tab) {
-      ['airline','menu','qrcode'].forEach(t => {
-        document.getElementById('section-'+t).classList.add('hidden');
-        document.getElementById('tab-btn-'+t).className = 'btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center gap-1.5';
-      });
-      document.getElementById('section-'+tab).classList.remove('hidden');
-      const colors = { airline:'bg-google-blue text-white', menu:'bg-google-yellow text-slate-900', qrcode:'bg-google-green text-white' };
-      document.getElementById('tab-btn-'+tab).className = 'btn-3d px-4 py-2.5 text-xs ' + colors[tab] + ' flex items-center gap-1.5 shadow-md';
-      if (tab === 'menu') renderMenu();
-      lucide.createIcons();
-    }
-
-    function renderMenu(q = '') {
-      const tabs = document.getElementById('category-container');
-      tabs.innerHTML = categories.map(c => `
-        <button onclick="setCategory('${c.id}')" class="btn-3d px-3.5 py-2 text-xs whitespace-nowrap ${currentCategory===c.id ? 'bg-google-yellow text-slate-900 font-bold' : 'bg-white text-slate-600 border border-slate-200'}">
-          ${c.title}
-        </button>`).join('');
-
-      const filtered = menuItems.filter(i => {
-        const cat = currentCategory === 'all' || i.category_id === currentCategory;
-        const search = i.name.toLowerCase().includes(q.toLowerCase()) || i.description.toLowerCase().includes(q.toLowerCase());
-        return cat && search;
-      });
-
-      document.getElementById('menu-grid').innerHTML = filtered.map(item => `
-        <div class="glass-card rounded-3xl overflow-hidden flex flex-col group">
-          <div class="relative h-44 overflow-hidden">
-            <img src="${item.image}" alt="${item.name}" class="menu-img w-full h-full object-cover" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            <span class="absolute bottom-3 left-3 bg-white/95 text-google-green font-mono text-xs px-3 py-1 rounded-full font-bold shadow">
-              R$ ${item.price.toFixed(2).replace('.',',')}
-            </span>
+    <!-- ================= APLICATIVO PRINCIPAL ================= -->
+    <div id="app-container" class="max-w-7xl mx-auto px-4 py-6 md:py-10 flex flex-col min-h-screen hidden">
+      
+      <!-- Header Dinâmico & 3D -->
+      <header class="glass-card rounded-3xl p-6 mb-8 flex flex-col md:flex-row justify-between items-center gap-6 google-border-glow">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-google-blue via-google-red to-google-yellow flex items-center justify-center text-white text-2xl font-black shadow-xl shadow-blue-500/30">
+            LP
           </div>
-          <div class="p-4 flex-1 flex flex-col justify-between gap-3">
-            <div>
-              <h3 class="font-bold text-slate-900 group-hover:text-google-blue transition-colors">${item.name}</h3>
-              <p class="text-xs text-slate-500 mt-1 leading-relaxed line-clamp-3">${item.description}</p>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="inline-block w-3 h-3 bg-google-green rounded-full animate-ping"></span>
+              <span class="text-xs font-mono tracking-widest text-google-blue uppercase font-bold">Enterprise Hospitality</span>
             </div>
-            <button onclick="addToCart('${item.id}')" class="btn-3d w-full bg-slate-100 hover:bg-google-blue hover:text-white text-google-blue border border-slate-200 py-2.5 text-xs flex items-center justify-center gap-1.5">
-              <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Adicionar
-            </button>
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white mt-0.5">
+              Laguna Plaza & Restaurante Mandi
+            </h1>
+            <p class="text-xs text-slate-300">Cardápio Completo & Emissão Expressa PNR</p>
           </div>
-        </div>`).join('') || '<p class="col-span-full text-center text-slate-400 py-16">Nenhum item encontrado.</p>';
+        </div>
+
+        <!-- Seletor de Módulos 3D Arredondados -->
+        <div class="flex flex-wrap gap-2 bg-slate-900/90 p-2 rounded-full border border-slate-800 shadow-inner">
+          <button onclick="switchTab('airline')" id="tab-btn-airline" class="btn-3d px-4 py-2 text-xs bg-google-blue text-white flex items-center gap-2">
+            <i data-lucide="plane" class="w-4 h-4"></i> Companhias & PNR
+          </button>
+          <button onclick="switchTab('menu')" id="tab-btn-menu" class="btn-3d px-4 py-2 text-xs bg-slate-800 text-slate-300 hover:text-white flex items-center gap-2">
+            <i data-lucide="utensils" class="w-4 h-4"></i> Cardápio
+          </button>
+          <button onclick="switchTab('info')" id="tab-btn-info" class="btn-3d px-4 py-2 text-xs bg-slate-800 text-slate-300 hover:text-white flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4"></i> Ramais & Hotel
+          </button>
+          <button onclick="switchTab('qrcode')" id="tab-btn-qrcode" class="btn-3d px-4 py-2 text-xs bg-slate-800 text-slate-300 hover:text-white flex items-center gap-2">
+            <i data-lucide="qr-code" class="w-4 h-4"></i> QR / NFC
+          </button>
+        </div>
+      </header>
+
+      <!-- Layout com Abas Laterais e Conteúdo Principal -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start flex-1">
+        
+        <!-- ABAS LATERAIS / INFORMAÇÕES DO HOTEL (Sidebar) -->
+        <aside class="lg:col-span-3 space-y-4">
+          <div class="glass-card p-5 rounded-3xl space-y-4">
+            <h3 class="text-xs font-mono font-bold text-google-yellow uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="phone-call" class="w-4 h-4"></i> Ramais & Utilidades
+            </h3>
+            <div class="space-y-2 text-xs font-mono text-slate-300">
+              <div class="flex justify-between p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span>Recepção:</span> <strong class="text-white">Ramal 9</strong>
+              </div>
+              <div class="flex justify-between p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span>Restaurante Mandi:</span> <strong class="text-white">Ramal 128</strong>
+              </div>
+              <div class="flex justify-between p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span>Room Service:</span> <strong class="text-white">Ramal 130</strong>
+              </div>
+              <div class="flex justify-between p-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                <span>Governança:</span> <strong class="text-white">Ramal 15</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card p-5 rounded-3xl space-y-3">
+            <h3 class="text-xs font-mono font-bold text-google-blue uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="globe" class="w-4 h-4"></i> Links Oficiais
+            </h3>
+            <ul class="space-y-2 text-xs">
+              <li><a href="https://www.lagunaplaza.com.br/" target="_blank" class="text-google-blue hover:underline flex items-center gap-1.5 truncate">→ Laguna Plaza Site</a></li>
+              <li><a href="https://lagunaplaza.myguest.digital/" target="_blank" class="text-google-green hover:underline flex items-center gap-1.5 truncate">→ Guest Digital Portal</a></li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL (Main) -->
+        <main class="lg:col-span-9 flex-1">
+
+          <!-- ================= MÓDULO 1: COMPANHIAS AÉREAS & PNR ================= -->
+          <section id="section-airline" class="space-y-8 animate-fade-in">
+            <div class="grid grid-cols-1 gap-8">
+              <div class="glass-card p-6 md:p-8 rounded-3xl">
+                <h3 class="text-lg font-bold text-white mb-6 flex items-center justify-between">
+                  <span>Emissão Expressa de Voucher PNR & Cartão Check-out</span>
+                  <span class="text-xs font-mono bg-google-green/20 text-google-green px-3 py-1 rounded-full border border-google-green/30">Sistema Ativo</span>
+                </h3>
+                
+                <form id="pnr-form" onsubmit="handlePNRSubmit(event)" class="space-y-4">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-xs font-semibold text-slate-300 mb-1">Companhia Aérea</label>
+                      <select id="pnr-airline" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-google-blue">
+                        <option value="LATAM">LATAM Airlines</option>
+                        <option value="GOL">GOL Linhas Aéreas</option>
+                        <option value="AZUL">AZUL Conecta</option>
+                        <option value="TAP">TAP Air Portugal</option>
+                        <option value="AMERICAN">American Airlines</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-slate-300 mb-1">Código PNR / Reserva</label>
+                      <input type="text" id="pnr-code" required placeholder="Ex: K89XPL" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-white uppercase placeholder:text-slate-600 focus:outline-none focus:border-google-blue font-mono" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Nome Completo do Passageiro ou Tripulante</label>
+                    <input type="text" id="pnr-name" required placeholder="Ex: Cristian Ribeiro Florêncio" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-google-blue" />
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-xs font-semibold text-slate-300 mb-1">Documento (CPF / Passaporte)</label>
+                      <input type="text" id="pnr-doc" required placeholder="000.000.000-00" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-google-blue font-mono" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-slate-300 mb-1">Categoria de Atendimento</label>
+                      <select id="pnr-type" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-google-blue">
+                        <option value="CREW">Tripulação Técnica / Comissários</option>
+                        <option value="PAX_VIP">Passageiro Conexão / VIP</option>
+                        <option value="PAX_STANDARD">Passageiro Standard Layover</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn-3d w-full bg-gradient-to-r from-google-blue via-google-red to-google-yellow text-slate-950 font-extrabold py-3.5 transition-all shadow-lg text-sm tracking-wide mt-2 hover:opacity-95">
+                    Gerar Voucher & Cartão de Impressão
+                  </button>
+                </form>
+
+                <!-- ================= VOUCHER / CARTÃO PARA APRESENTAÇÃO OU IMPRESSÃO ================= -->
+                <div id="pnr-success-box" class="hidden mt-8 space-y-4">
+                  <div id="printable-voucher" class="glass-card p-6 md:p-8 rounded-3xl border-2 border-google-blue/60 bg-slate-900/95 relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-google-blue/10 rounded-full blur-2xl"></div>
+                    <div class="flex justify-between items-start border-b border-slate-800 pb-4">
+                      <div>
+                        <span class="text-xs font-mono bg-google-blue/20 text-google-blue px-3 py-1 rounded-full font-bold">VOUCHER OFICIAL HOTEL & RESTAURANTE</span>
+                        <h4 id="v-airline" class="text-xl font-black text-white mt-2">LATAM AIRLINES</h4>
+                        <p class="text-xs text-slate-400">Laguna Plaza Hotel & Restaurante Mandi</p>
+                      </div>
+                      <div class="text-right">
+                        <p class="text-xs text-slate-400 font-mono">PNR / Reserva</p>
+                        <p id="v-code" class="text-lg font-mono font-bold text-google-yellow">K89XPL</p>
+                      </div>
+                    </div>
+
+                    <div class="py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono border-b border-slate-800">
+                      <div>
+                        <span class="text-slate-500 block">HÓSPEDE / PASSAGEIRO</span>
+                        <strong id="v-name" class="text-white text-sm">Cristian Ribeiro Florêncio</strong>
+                      </div>
+                      <div>
+                        <span class="text-slate-500 block">DOCUMENTO</span>
+                        <strong id="v-doc" class="text-slate-300">000.000.000-00</strong>
+                      </div>
+                      <div>
+                        <span class="text-slate-500 block">CATEGORIA</span>
+                        <strong id="v-type" class="text-google-green">CREW</strong>
+                      </div>
+                      <div>
+                        <span class="text-slate-500 block">STATUS</span>
+                        <strong class="text-google-blue">APROVADO</strong>
+                      </div>
+                    </div>
+
+                    <div class="pt-4 flex justify-between items-center text-xs text-slate-400">
+                      <p>Apresente este cartão no check-out do hotel ou na recepção do Restaurante Mandi.</p>
+                      <button onclick="window.print()" class="btn-3d bg-google-blue text-white px-5 py-2 text-xs flex items-center gap-2">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> Imprimir Voucher
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= MÓDULO 2: CARDÁPIO COMPLETO 3D ================= -->
+          <section id="section-menu" class="hidden space-y-6 animate-fade-in">
+            <div class="glass-card p-6 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div>
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                  <i data-lucide="utensils-crossed" class="text-google-yellow"></i> Cardápio Completo & Room Service Mandi[cite: 1, 2]
+                </h2>
+                <p class="text-xs text-slate-300 mt-1">Explore as opções oficiais com fotos reais e atendimento integrado[cite: 1, 2].</p>
+              </div>
+              <div class="flex items-center gap-3 w-full md:w-auto">
+                <div class="relative w-full md:w-64">
+                  <i data-lucide="search" class="absolute left-4 top-3.5 w-4 h-4 text-slate-400"></i>
+                  <input type="text" id="menu-search" oninput="filterMenu(this.value)" placeholder="Buscar prato, drink..." class="w-full bg-slate-900 border border-slate-700 rounded-full pl-11 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-google-blue" />
+                </div>
+                <button onclick="openCartModal()" class="btn-3d bg-google-yellow text-slate-950 px-5 py-2.5 text-sm flex items-center gap-2 whitespace-nowrap shadow-lg">
+                  <i data-lucide="shopping-cart" class="w-4 h-4"></i> Carrinho (<span id="cart-counter">0</span>)
+                </button>
+              </div>
+            </div>
+
+            <!-- Abas de Categorias -->
+            <div id="category-container" class="flex gap-2 overflow-x-auto pb-3"></div>
+
+            <!-- Grid de Produtos -->
+            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          </section>
+
+          <!-- ================= MÓDULO 3: INFORMAÇÕES EXTRAS DO HOTEL ================= -->
+          <section id="section-info" class="hidden space-y-6 animate-fade-in">
+            <div class="glass-card p-8 rounded-3xl space-y-6">
+              <h2 class="text-2xl font-extrabold text-white">Sobre o Laguna Plaza Hotel</h2>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Localizado estrategicamente, o Laguna Plaza Hotel oferece infraestrutura completa para passageiros, tripulações de companhias aéreas e hóspedes corporativos. Desfrute do Restaurante Mandi com pratos internacionais, serviços de quarto 24h e integração de ponta com sistemas hoteleiros globais.
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                <div class="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl">
+                  <h4 class="text-google-blue font-bold text-sm">Check-in Expresso</h4>
+                  <p class="text-xs text-slate-400 mt-1">Atendimento automatizado via PNR e QR Code digital.</p>
+                </div>
+                <div class="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl">
+                  <h4 class="text-google-yellow font-bold text-sm">Restaurante Mandi</h4>
+                  <p class="text-xs text-slate-400 mt-1">Gastronomia variada com prioridade para tripulantes.</p>
+                </div>
+                <div class="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl">
+                  <h4 class="text-google-green font-bold text-sm">Segurança & LGPD</h4>
+                  <p class="text-xs text-slate-400 mt-1">Criptografia de dados e conformidade total.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= MÓDULO 4: QR CODE & NFC DIGITAL ================= -->
+          <section id="section-qrcode" class="hidden space-y-8 animate-fade-in max-w-3xl mx-auto text-center">
+            <div class="glass-card p-8 md:p-12 rounded-3xl space-y-6">
+              <div class="w-20 h-20 bg-google-blue/15 border border-google-blue/30 rounded-3xl mx-auto flex items-center justify-center text-google-blue shadow-lg">
+                <i data-lucide="qr-code" class="w-10 h-10"></i>
+              </div>
+              <div class="space-y-2">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white">QR Code Dinâmico de Acesso à Mesa & Quarto</h2>
+                <p class="text-slate-300 text-sm">Escaneie com qualquer smartphone para abrir o cardápio instantaneamente ou aproxime seu dispositivo habilitado com NFC.</p>
+              </div>
+
+              <div class="bg-white p-6 rounded-3xl inline-block shadow-2xl transform hover:scale-105 transition-transform">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://ws.droppfy.com/cardapio-laguna" alt="QR Code Laguna Plaza" class="mx-auto rounded-xl" />
+                <p class="text-xs font-mono font-bold text-slate-900 mt-3">https://ws.droppfy.com/cardapio-laguna</p>
+              </div>
+
+              <div class="flex justify-center gap-4 pt-4">
+                <button onclick="triggerConfetti()" class="btn-3d bg-google-green text-slate-950 px-6 py-3 text-sm flex items-center gap-2">
+                  <i data-lucide="smartphone-nfc" class="w-4 h-4"></i> Testar Aproximação NFC
+                </button>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+
+      <!-- Footer Minimalista -->
+      <footer class="border-t border-slate-800/80 pt-6 mt-12 text-center text-xs text-slate-400 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>© 2026 Laguna Plaza Hotel & Restaurante Mandi · Tecnologias Integradas[cite: 1, 2].</p>
+        <div class="flex gap-4 font-mono">
+          <span class="text-google-green">● Redis Cluster</span>
+          <span class="text-google-blue">● Cloudflare Edge</span>
+          <span class="text-google-yellow">● 3D WebGL UI</span>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- Carrinho Drawer Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 hidden justify-end backdrop-blur-sm">
+      <div class="w-full max-w-md bg-slate-900 h-full p-6 flex flex-col justify-between border-l border-slate-800 shadow-2xl">
+        <div>
+          <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <h2 class="font-bold text-lg text-google-yellow flex items-center gap-2">
+              <i data-lucide="shopping-bag" class="w-5 h-5"></i> Seu Pedido Atual
+            </h2>
+            <button onclick="closeCartModal()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+          </div>
+          <div id="cart-items-list" class="mt-4 space-y-3 max-h-[60vh] overflow-y-auto pr-2"></div>
+        </div>
+        <div class="space-y-4">
+          <div class="border-t border-slate-800 pt-4 flex justify-between items-center font-bold text-lg">
+            <span>Total (+10% taxa):</span>
+            <span id="cart-total-price" class="text-google-green">R$ 0,00</span>
+          </div>
+          <button onclick="confirmOrder()" class="btn-3d w-full bg-google-green text-slate-950 py-3.5 shadow-lg text-sm">
+            Enviar Pedido para Cozinha / Quarto
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script de Aplicação -->
+    <script>
       lucide.createIcons();
-    }
 
-    function setCategory(id) { currentCategory = id; renderMenu(document.getElementById('menu-search').value); }
-    function filterMenu(v) { renderMenu(v); }
+      // Autenticação Inicial
+      function handleAuth(event) {
+        event.preventDefault();
+        const pin = document.getElementById('auth-pin').value;
+        if(pin.trim() !== '') {
+          document.getElementById('auth-screen').classList.add('hidden');
+          document.getElementById('app-container').classList.remove('hidden');
+          lucide.createIcons();
+        } else {
+          alert('Por favor, insira um código válido.');
+        }
+      }
 
-    function addToCart(id) {
-      const item = menuItems.find(i => i.id === id);
-      const ex = cart.find(i => i.id === id);
-      if (ex) ex.qty++; else cart.push({...item, qty:1});
-      updateCartUI();
-      confetti({ particleCount: 25, spread: 50, origin: { y: 0.8 } });
-    }
+      // Alternância de Abas
+      function switchTab(tabName) {
+        ['airline', 'menu', 'info', 'qrcode'].forEach(t => {
+          document.getElementById(`section-${t}`).classList.add('hidden');
+          const btn = document.getElementById(`tab-btn-${t}`);
+          if(btn) {
+            btn.classList.remove('bg-google-blue', 'text-white');
+            btn.classList.add('bg-slate-800', 'text-slate-300');
+          }
+        });
+        document.getElementById(`section-${tabName}`).classList.remove('hidden');
+        const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+        if(activeBtn) {
+          activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+          activeBtn.classList.add('bg-google-blue', 'text-white');
+        }
+        lucide.createIcons();
+      }
 
-    function updateCartUI() {
-      const count = cart.reduce((s,i) => s + i.qty, 0);
-      const total = cart.reduce((s,i) => s + i.price * i.qty, 0) * 1.1;
-      document.getElementById('cart-counter').innerText = count;
-      document.getElementById('cart-total-price').innerText = `R$ ${total.toFixed(2).replace('.',',')}`;
-      document.getElementById('cart-items-list').innerHTML = cart.map(i => `
-        <div class="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
-          <div><p class="font-medium">${i.name}</p><p class="text-xs text-slate-400">Qtd: ${i.qty} × R$ ${i.price.toFixed(2)}</p></div>
-          <p class="font-bold text-google-green">R$ ${(i.price*i.qty).toFixed(2)}</p>
-        </div>`).join('') || '<p class="text-center text-slate-400 py-10">Carrinho vazio</p>';
-    }
+      // Submissão do PNR e Geração do Cartão de Voucher
+      function handlePNRSubmit(event) {
+        event.preventDefault();
+        const airline = document.getElementById('pnr-airline').value;
+        const code = document.getElementById('pnr-code').value.toUpperCase();
+        const name = document.getElementById('pnr-name').value;
+        const doc = document.getElementById('pnr-doc').value;
+        const type = document.getElementById('pnr-type').value;
 
-    function openCartModal() { document.getElementById('cart-modal').classList.remove('hidden'); document.getElementById('cart-modal').classList.add('flex'); }
-    function closeCartModal() { document.getElementById('cart-modal').classList.add('hidden'); document.getElementById('cart-modal').classList.remove('flex'); }
+        document.getElementById('v-airline').innerText = airline + ' AIRLINES';
+        document.getElementById('v-code').innerText = code;
+        document.getElementById('v-name').innerText = name;
+        document.getElementById('v-doc').innerText = doc;
+        document.getElementById('v-type').innerText = type;
 
-    function confirmOrder() {
-      if (!cart.length) return alert('Carrinho vazio');
-      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-      alert('Pedido enviado com sucesso para a cozinha do Restaurante Mandi!');
-      cart = []; updateCartUI(); closeCartModal();
-    }
+        document.getElementById('pnr-success-box').classList.remove('hidden');
+        triggerConfetti();
+      }
 
-    function handlePNRSubmit(e) {
-      e.preventDefault();
-      const airline = document.getElementById('pnr-airline').value;
-      const pnr = document.getElementById('pnr-code').value.toUpperCase();
-      const name = document.getElementById('pnr-name').value;
-      const voucherId = `VOUCHER-${airline}-${Math.floor(Math.random()*89999+10000)}`;
-      const token = btoa(JSON.stringify({ voucherId, pnr, name, ts: Date.now() }));
-      document.getElementById('pnr-success-box').classList.remove('hidden');
-      document.getElementById('out-voucher-id').innerText = voucherId;
-      document.getElementById('out-url').innerText = `https://ws.droppfy.com/checkin?voucher=${token.substring(0,24)}...`;
-      document.getElementById('out-token').innerText = token;
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-    }
+      function triggerConfetti() {
+        if(typeof confetti === 'function') {
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        }
+      }
 
-    function triggerConfetti() { confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } }); }
+      // Categorias e Cardápio Oficial
+      const categories = [
+        { id: 'all', title: '✨ Todos os Itens' },
+        { id: 'entradas', title: '🥟 Entradas & Sopinhas' },
+        { id: 'principais', title: '🥩 Pratos Principais' },
+        { id: 'grelhados', title: '🔥 Grelhados' },
+        { id: 'bebidas', title: '🍹 Drinks & Bebidas' }
+      ];
 
-    // init
-    switchTab('airline');
-  </script>
-</body>
+      const menuItems = [
+        { id: 'e1', category_id: 'entradas', name: 'Antepasto de Berinjela', description: 'Acompanhado de torradas crocantes.', price: 10.00, image: 'https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=600&q=80' },
+        { id: 'e2', category_id: 'entradas', name: 'Caesar Salad', description: 'Alfaces variadas, molho clássico caesar, croutons, frango grelhado e parmesão.', price: 37.00, image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&w=600&q=80' },
+        { id: 'p1', category_id: 'principais', name: 'Carne de Sol Tambaú', description: 'Carne de sol com mandioca frita, arroz branco, vinagrete e queijo coalho.', price: 62.00, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80' },
+        { id: 'p2', category_id: 'principais', name: 'Parmegiana de Filé', description: 'Filé empanado, presunto, queijo derretido, purê de batata e arroz.', price: 62.00, image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=600&q=80' },
+        { id: 'g1', category_id: 'grelhados', name: 'T-Bone Angus', description: 'Escolha 3 guarnições e 1 molho de sua preferência.', price: 130.00, image: 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80' }
+      ];
+
+      let cart = [];
+
+      function renderCategories() {
+        const container = document.getElementById('category-container');
+        if(!container) return;
+        container.innerHTML = categories.map(cat => `
+          <button onclick="filterCategory('${cat.id}')" class="btn-3d px-4 py-2 text-xs bg-slate-900 text-slate-300 hover:text-white whitespace-nowrap border border-slate-800">
+            ${cat.title}
+          </button>
+        `).join('');
+      }
+
+      function renderMenu(itemsToRender = menuItems) {
+        const grid = document.getElementById('menu-grid');
+        if(!grid) return;
+        grid.innerHTML = itemsToRender.map(item => `
+          <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between">
+            <div>
+              <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" />
+              <div class="p-5 space-y-2">
+                <h3 class="font-bold text-white text-base">${item.name}</h3>
+                <p class="text-xs text-slate-300 line-clamp-2">${item.description}</p>
+              </div>
+            </div>
+            <div class="p-5 pt-0 flex justify-between items-center">
+              <span class="font-extrabold text-google-green text-lg">R$ ${item.price.toFixed(2)}</span>
+              <button onclick="addToCart('${item.id}')" class="btn-3d bg-google-blue text-white px-4 py-2 text-xs flex items-center gap-1.5">
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Adicionar
+              </button>
+            </div>
+          </div>
+        `).join('');
+        lucide.createIcons();
+      }
+
+      function filterCategory(catId) {
+        if(catId === 'all') {
+          renderMenu(menuItems);
+        } else {
+          renderMenu(menuItems.filter(i => i.category_id === catId));
+        }
+      }
+
+      function filterMenu(query) {
+        const q = query.toLowerCase();
+        renderMenu(menuItems.filter(i => i.name.toLowerCase().includes(q) || i.description.toLowerCase().includes(q)));
+      }
+
+      function addToCart(id) {
+        const product = menuItems.find(i => i.id === id);
+        if(product) {
+          cart.push(product);
+          updateCartCounter();
+          triggerConfetti();
+        }
+      }
+
+      function updateCartCounter() {
+        document.getElementById('cart-counter').innerText = cart.length;
+      }
+
+      function openCartModal() {
+        const list = document.getElementById('cart-items-list');
+        list.innerHTML = cart.map((item, idx) => `
+          <div class="flex justify-between items-center p-3 bg-slate-950/60 rounded-2xl border border-slate-800 text-xs">
+            <div>
+              <strong class="text-white">${item.name}</strong>
+              <p class="text-google-green">R$ ${item.price.toFixed(2)}</p>
+            </div>
+            <button onclick="removeFromCart(${idx})" class="text-google-red font-bold">✕</button>
+          </div>
+        `).join('');
+
+        const total = cart.reduce((acc, item) => acc + item.price, 0);
+        const totalWithTax = total * 1.1;
+        document.getElementById('cart-total-price').innerText = `R$ ${totalWithTax.toFixed(2)}`;
+        document.getElementById('cart-modal').classList.remove('hidden');
+        document.getElementById('cart-modal').classList.add('flex');
+        lucide.createIcons();
+      }
+
+      function closeCartModal() {
+        document.getElementById('cart-modal').classList.add('hidden');
+        document.getElementById('cart-modal').classList.remove('flex');
+      }
+
+      function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCartCounter();
+        openCartModal();
+      }
+
+      function confirmOrder() {
+        if(cart.length === 0) {
+          alert('Seu carrinho está vazio.');
+          return;
+        }
+        alert('Pedido enviado com sucesso para a Cozinha / Quarto!');
+        cart = [];
+        updateCartCounter();
+        closeCartModal();
+      }
+
+      renderCategories();
+      renderMenu();
+    </script>
+  </body>
 </html>
