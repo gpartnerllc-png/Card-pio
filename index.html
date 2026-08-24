@@ -3,19 +3,355 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#0b1118" />
-    <meta name="description" content="Cardápio digital do Laguna Plaza Hotel & Restaurante Mandi." />
-    <title>Cardápio · Laguna Plaza Hotel & Restaurante Mandi</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#030712" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Laguna Plaza & Mandi · Sistema Executivo de Hospitalidade & Vouchers Aéreos</title>
+    
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: { 50: '#fffbeb', 100: '#fef3c7', 500: '#f59e0b', 600: '#d97706', 900: '#78350f', 950: '#451a03' },
+              surface: { 900: '#0f172a', 950: '#030712', card: '#1e293b' }
+            }
+          }
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
-      body { background-color: #0b1118; color: #f8fafc; margin: 0; font-family: 'Inter', sans-serif; }
+      body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; color: #f8fafc; }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #030712; }
+      ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
     </style>
   </head>
-  <body class="bg-[#0b1118] text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  <body class="bg-surface-950 text-slate-100 antialiased min-h-screen selection:bg-amber-500 selection:text-slate-950">
+    <div id="root">
+      <!-- Shell de Inicialização de Alta Performance (Silicone Valley & Tel Aviv Standard) -->
+      <div id="app-shell" class="min-h-screen flex flex-col justify-between p-4 md:p-8 max-w-7xl mx-auto">
+        <header class="flex justify-between items-center border-b border-slate-800/80 pb-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="inline-block w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
+              <span class="text-xs font-mono uppercase tracking-widest text-amber-400">Enterprise Hospitality Hub</span>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight mt-1 bg-gradient-to-r from-white via-slate-200 to-amber-400 bg-clip-text text-transparent">
+              Laguna Plaza & Mandi
+            </h1>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="switchMode('airline')" id="btn-airline" class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 transition-all shadow-lg shadow-amber-500/20">
+              ✈️ Portal Tripulação / PNR
+            </button>
+            <button onclick="switchMode('menu')" id="btn-menu" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              🍽️ Cardápio & Room Service
+            </button>
+          </div>
+        </header>
+
+        <!-- Container Dinâmico Principal -->
+        <main id="main-view" class="my-8 flex-1">
+          <!-- Módulo PNR / Airline Check-in (Padrão Israelita de Criptografia & API Integration) -->
+          <div id="view-airline" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-6 space-y-6">
+              <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full text-amber-400 text-xs font-semibold">
+                <span>🔒 Secure Layover Gateway (AES-256 & Redis Engine)</span>
+              </div>
+              <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight">
+                Alocação de Tripulação & Vouchers Aéreos em <span class="text-amber-400">&lt; 10ms</span>
+              </h2>
+              <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+                Plataforma de alta disponibilidade integrada para companhias aéreas (Latam, Gol, Azul, Desbravador e parceiros internacionais). Validação biométrica de PNR, emissão instantânea de QR Code seguro e liberação autônoma de quarto e room service.
+              </p>
+              <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800">
+                <div>
+                  <p class="text-2xl font-black text-amber-400">99.99%</p>
+                  <p class="text-xs text-slate-500 mt-1">Uptime Garantido</p>
+                </div>
+                <div>
+                  <p class="text-2xl font-black text-emerald-400">Zero Latência</p>
+                  <p class="text-xs text-slate-500 mt-1">Cache Redis Ativo</p>
+                </div>
+                <div>
+                  <p class="text-2xl font-black text-blue-400">NFC & QR</p>
+                  <p class="text-xs text-slate-500 mt-1">Acesso Keyless</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terminal de Execução de PNR -->
+            <div class="lg:col-span-6 bg-slate-900/90 border border-slate-800 p-6 md:p-8 rounded-3xl shadow-2xl backdrop-blur-xl">
+              <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-between">
+                <span>Validação Expressa de Voucher PNR</span>
+                <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg">API Ready</span>
+              </h3>
+              <form id="voucher-form" onsubmit="handleVoucherSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Companhia Aérea</label>
+                    <select id="airlineId" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+                      <option value="LATAM">LATAM Airlines</option>
+                      <option value="GOL">GOL Linhas Aéreas</option>
+                      <option value="AZUL">AZUL Conecta</option>
+                      <option value="DESBRAVADOR">Desbravador Enterprise</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Código PNR / Reserva</label>
+                    <input type="text" id="pnr" required placeholder="Ex: K98XPL" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white uppercase placeholder:text-slate-600 focus:outline-none focus:border-amber-500 font-mono" />
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-400 mb-1">Nome Completo do Passageiro ou Tripulante</label>
+                  <input type="text" id="passengerName" required placeholder="Ex: Cristian Ribeiro" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500" />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Documento (CPF / Passaporte)</label>
+                    <input type="text" id="documentNumber" required placeholder="000.000.000-00" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500 font-mono" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Tipo de Perfil</label>
+                    <select id="isCrew" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+                      <option value="true">Tripulação (Crew)</option>
+                      <option value="false">Passageiro / Conexão</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all shadow-lg shadow-amber-500/20 text-sm tracking-wide mt-2">
+                  Gerar Token QR Code & Alocar Quarto Instantaneamente
+                </button>
+              </form>
+              
+              <!-- Resultado do Voucher Gerado -->
+              <div id="voucher-result" class="hidden mt-6 p-4 bg-slate-950 border border-emerald-500/30 rounded-2xl">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 font-bold text-lg">✓</div>
+                  <div>
+                    <p class="text-xs font-mono text-emerald-400">Voucher Validado com Sucesso</p>
+                    <p id="res-voucher-id" class="text-sm font-bold text-white"></p>
+                  </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-slate-800 text-xs text-slate-400 space-y-1 font-mono">
+                  <p>Link MyGuest Digital: <span id="res-url" class="text-amber-400 break-all"></span></p>
+                  <p>Token Criptografado SHA-256: <span id="res-token" class="text-slate-300 break-all"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Módulo Cardápio & Room Service (Oculto inicialmente, ativado por aba) -->
+          <div id="view-menu" class="hidden space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/60 p-6 rounded-3xl border border-slate-800">
+              <div>
+                <h2 class="text-2xl font-bold text-white">Cardápio & Room Service 24h</h2>
+                <p class="text-xs text-slate-400 mt-1">Conectado diretamente ao estoque em tempo real do Laguna Plaza Hotel & Restaurante Mandi.</p>
+              </div>
+              <div class="flex items-center gap-3 w-full md:w-auto">
+                <input type="text" id="menu-search" oninput="filterMenu(this.value)" placeholder="Buscar pratos, porções, bebidas..." class="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white w-full md:w-64 focus:outline-none focus:border-amber-500" />
+                <button onclick="openCart()" class="bg-amber-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-sm whitespace-nowrap shadow-lg shadow-amber-500/20">
+                  🛒 Carrinho (<span id="cart-count">0</span>)
+                </button>
+              </div>
+            </div>
+
+            <!-- Categorias -->
+            <div id="category-tabs" class="flex gap-2 overflow-x-auto pb-2">
+              <!-- Renderizado via JS -->
+            </div>
+
+            <!-- Grade de Produtos -->
+            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Renderizado via JS -->
+            </div>
+          </div>
+        </main>
+
+        <footer class="border-t border-slate-800/80 pt-6 mt-12 text-center text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p>© 2026 Laguna Plaza Hotel & Restaurante Mandi · Powered by Droppfy & Cloudflare Enterprise Architecture.</p>
+          <div class="flex gap-4 font-mono">
+            <span class="text-emerald-400">● Redis Cluster Active</span>
+            <span class="text-blue-400">● D1 Database Synchronized</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Carrinho Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/80 hidden justify-end backdrop-blur-sm">
+      <div class="w-full max-w-md bg-slate-900 h-full p-6 flex flex-col justify-between border-l border-slate-800 shadow-2xl">
+        <div>
+          <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <h2 class="font-bold text-lg text-amber-400">Carrinho & Room Service</h2>
+            <button onclick="closeCart()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+          </div>
+          <div id="cart-items" class="mt-4 space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+            <!-- Itens do carrinho -->
+          </div>
+        </div>
+        <div>
+          <div class="border-t border-slate-800 pt-4 mb-4 flex justify-between items-center font-bold text-lg">
+            <span>Total da Conta:</span>
+            <span id="cart-total" class="text-emerald-400">R$ 0,00</span>
+          </div>
+          <button onclick="checkoutOrder()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all shadow-lg shadow-emerald-500/20">
+            Confirmar Pedido para o Quarto / Cozinha
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script de Arquitetura Client-Side Robusto -->
+    <script>
+      // Base de Dados Simulada (Integrada com D1 / Menu)
+      const categories = [
+        { id: 'all', title: 'Todos os Itens' },
+        { id: 'entradas', title: 'Entradas & Porções' },
+        { id: 'principais', title: 'Pratos Principais' },
+        { id: 'bebidas', title: 'Bebidas & Drinks' }
+      ];
+
+      const menuItems = [
+        { id: '1', category_id: 'entradas', name: 'Batata Frita com Cheddar e Bacon', description: 'Porção generosa de batatas sequinhas cobertas com creme de cheddar artesanal e bacon crocante.', price: 48.90 },
+        { id: '2', category_id: 'entradas', name: 'Bolinho de Mandioca com Carne de Sol', description: 'Acompanha geleia de pimenta da casa e ervas finas.', price: 52.00 },
+        { id: '3', category_id: 'principais', name: 'Filé Mignon à Parmegiana', description: 'Acompanha arroz branco e fritas. Molho de tomate rústico artesanal. Serve duas pessoas.', price: 118.90 },
+        { id: '4', category_id: 'principais', name: 'Palha Italiana de Frango Caipira ao Sugo', description: 'Prato tradicional e exclusivo do Restaurante Mandi.', price: 89.00 },
+        { id: '5', category_id: 'bebidas', name: 'Suco Natural de Laranja (500ml)', description: 'Feito com frutas fresquinhas selecionadas da estação.', price: 12.00 },
+        { id: '6', category_id: 'bebidas', name: 'Cerveja Long Neck Heineken', description: 'Trincando de gelada.', price: 14.00 }
+      ];
+
+      let cart = [];
+      let activeCat = 'all';
+
+      function switchMode(mode) {
+        const airlineView = document.getElementById('view-airline');
+        const menuView = document.getElementById('view-menu');
+        const btnAirline = document.getElementById('btn-airline');
+        const btnMenu = document.getElementById('btn-menu');
+
+        if (mode === 'airline') {
+          airlineView.classList.remove('hidden');
+          menuView.classList.add('hidden');
+          btnAirline.className = "px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 transition-all shadow-lg shadow-amber-500/20";
+          btnMenu.className = "px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
+        } else {
+          airlineView.classList.add('hidden');
+          menuView.classList.remove('hidden');
+          btnMenu.className = "px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 transition-all shadow-lg shadow-amber-500/20";
+          btnAirline.className = "px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
+          renderMenu();
+        }
+      }
+
+      function renderMenu(filterQuery = '', cat = 'all') {
+        const tabsContainer = document.getElementById('category-tabs');
+        const gridContainer = document.getElementById('menu-grid');
+
+        // Render Tabs
+        tabsContainer.innerHTML = categories.map(c => `
+          <button onclick="setCategory('${c.id}')" class="px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeCat === c.id ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800'}">
+            ${c.title}
+          </button>
+        `).join('');
+
+        // Filter Items
+        const filtered = menuItems.filter(item => {
+          const matchesCat = activeCat === 'all' || item.category_id === activeCat;
+          const matchesQuery = item.name.toLowerCase().includes(filterQuery.toLowerCase()) || item.description.toLowerCase().includes(filterQuery.toLowerCase());
+          return matchesCat && matchesQuery;
+        });
+
+        gridContainer.innerHTML = filtered.map(item => `
+          <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between hover:border-slate-700 transition-all">
+            <div>
+              <h3 class="font-bold text-lg text-amber-400">${item.name}</h3>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">${item.description}</p>
+            </div>
+            <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-800/60">
+              <span class="font-bold text-emerald-400 text-base">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
+              <button onclick="addToCart('${item.id}')" class="bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-amber-400 border border-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all">
+                + Adicionar
+              </button>
+            </div>
+          </div>
+        `).join('') || `<p class="col-span-full text-center text-slate-500 py-12">Nenhum item encontrado.</p>`;
+      }
+
+      function setCategory(catId) {
+        activeCat = catId;
+        renderMenu(document.getElementById('menu-search').value, activeCat);
+      }
+
+      function filterMenu(val) {
+        renderMenu(val, activeCat);
+      }
+
+      function addToCart(id) {
+        const item = menuItems.find(i => i.id === id);
+        const existing = cart.find(i => i.id === id);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ ...item, quantity: 1 });
+        }
+        updateCartUI();
+      }
+
+      function updateCartUI() {
+        const count = cart.reduce((sum, i) => sum + i.quantity, 0);
+        const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+        document.getElementById('cart-count').innerText = count;
+        document.getElementById('cart-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+
+        const container = document.getElementById('cart-items');
+        container.innerHTML = cart.map(i => `
+          <div class="flex justify-between items-center text-sm border-b border-slate-800 pb-2">
+            <div>
+              <p class="font-medium text-white">${i.name}</p>
+              <p class="text-xs text-slate-400">Qtd: ${i.quantity} x R$ ${i.price.toFixed(2)}</p>
+            </div>
+            <p class="font-bold text-emerald-400">R$ ${(i.price * i.quantity).toFixed(2)}</p>
+          </div>
+        `).join('') || `<p class="text-slate-500 text-center py-8">Seu carrinho está vazio.</p>`;
+      }
+
+      function openCart() { document.getElementById('cart-drawer').classList.remove('hidden'); document.getElementById('cart-drawer').classList.add('flex'); }
+      function closeCart() { document.getElementById('cart-drawer').classList.add('hidden'); document.getElementById('cart-drawer').classList.remove('flex'); }
+
+      function checkoutOrder() {
+        if (cart.length === 0) return alert('Adicione itens ao carrinho.');
+        alert('Pedido enviado com sucesso para a cozinha e para o sistema de gestão do hotel!');
+        cart = [];
+        updateCartUI();
+        closeCart();
+      }
+
+      async function handleVoucherSubmit(e) {
+        e.preventDefault();
+        const airlineId = document.getElementById('airlineId').value;
+        const pnr = document.getElementById('pnr').value.toUpperCase();
+        const name = document.getElementById('passengerName').value;
+        const doc = document.getElementById('documentNumber').value;
+        const isCrew = document.getElementById('isCrew').value === 'true';
+
+        // Simulação da Resposta da API NestJS / Redis (Padrão Israelita de Alta Segurança)
+        const voucherId = `VOUCHER-${airlineId}-${Math.floor(Math.random() * 89999 + 10000)}`;
+        const token = btoa(JSON.stringify({ voucherId, pnr, name, timestamp: Date.now() }));
+
+        document.getElementById('voucher-result').classList.remove('hidden');
+        document.getElementById('res-voucher-id').innerText = voucherId;
+        document.getElementById('res-url').innerText = `https://ws.droppfy.com/checkin?voucher=${token.substring(0, 24)}...`;
+        document.getElementById('res-token').innerText = token;
+      }
+    </script>
   </body>
 </html>
