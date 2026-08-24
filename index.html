@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#4285F4" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title>Laguna Plaza & Mandi | Next-Gen Hospitality</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -54,27 +56,84 @@
 </head>
 <body class="text-slate-800 antialiased">
 
-  <!-- TELA DE ACESSO (Garçom) -->
+  <!-- ==================== TELAS DE ACESSO ==================== -->
+  <!-- Tela Inicial / Login -->
   <div id="auth-screen" class="fixed inset-0 z-[100] bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center p-4">
-    <div class="glass-card max-w-md w-full p-8 rounded-3xl text-center space-y-6">
+    <div class="glass-card max-w-md w-full p-8 rounded-3xl text-center space-y-5">
       <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-google-blue via-google-red to-google-yellow flex items-center justify-center text-white text-3xl font-black shadow-xl">LP</div>
       <div>
-        <h1 class="text-2xl font-extrabold text-slate-900">Acesso do Garçom</h1>
-        <p class="text-sm text-slate-500 mt-1">Digite o código para entrar no sistema</p>
+        <h1 class="text-2xl font-extrabold text-slate-900">Laguna Plaza & Mandi</h1>
+        <p class="text-sm text-slate-500 mt-1">Acesso por Matrícula + Biometria</p>
       </div>
-      <form onsubmit="handleAuth(event)" class="space-y-4">
-        <input type="password" id="auth-pin" placeholder="Código de Acesso" class="w-full bg-white border border-slate-200 rounded-2xl px-5 py-3.5 text-center text-lg font-mono tracking-widest focus:outline-none focus:ring-2 focus:ring-google-blue/40" required />
-        <button type="submit" class="btn-3d w-full bg-gradient-to-r from-google-blue to-google-green text-white font-bold py-3.5">Entrar no Sistema</button>
+
+      <!-- Login Form -->
+      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4 text-left">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Matrícula</label>
+          <input type="text" id="login-matricula" required placeholder="Ex: 2024001" class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-google-blue/40" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" onclick="simulateBiometric('digital')" class="btn-3d bg-slate-100 text-slate-700 py-3 text-xs flex items-center justify-center gap-1.5">
+            <i data-lucide="fingerprint" class="w-4 h-4"></i> Digital
+          </button>
+          <button type="button" onclick="simulateBiometric('facial')" class="btn-3d bg-slate-100 text-slate-700 py-3 text-xs flex items-center justify-center gap-1.5">
+            <i data-lucide="scan-face" class="w-4 h-4"></i> Facial
+          </button>
+        </div>
+        <p id="bio-status" class="text-xs text-center text-slate-500">Aguardando biometria...</p>
+
+        <button type="submit" id="btn-login" disabled class="btn-3d w-full bg-gradient-to-r from-google-blue to-google-green text-white font-bold py-3.5 opacity-50 cursor-not-allowed">
+          Entrar no Sistema
+        </button>
       </form>
-      <div class="pt-4 border-t border-slate-200">
-        <p class="text-xs text-slate-500 mb-3">Cliente? Escaneie o QR Code do Cardápio</p>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://ws.droppfy.com/cardapio-laguna" alt="QR Cardápio Público" class="mx-auto rounded-xl border border-slate-200" />
-        <p class="text-[10px] font-mono text-slate-400 mt-2">Cardápio Público · Sem Login</p>
+
+      <div class="pt-3 border-t border-slate-200 space-y-3">
+        <button onclick="showRegister()" class="text-sm text-google-blue font-semibold hover:underline">Solicitar Acesso (Novo Integrante)</button>
+        <div>
+          <p class="text-xs text-slate-500 mb-2">Cliente? Escaneie o QR do Cardápio</p>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://ws.droppfy.com/cardapio-laguna" alt="QR Público" class="mx-auto rounded-xl border border-slate-200" />
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- APP PRINCIPAL (oculto até login) -->
+  <!-- Tela de Cadastro -->
+  <div id="register-screen" class="fixed inset-0 z-[100] bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 hidden items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full p-8 rounded-3xl space-y-5">
+      <div class="text-center">
+        <h2 class="text-xl font-extrabold text-slate-900">Solicitar Acesso</h2>
+        <p class="text-xs text-slate-500">Preencha os dados. O Admin irá liberar.</p>
+      </div>
+      <form onsubmit="handleRegister(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Completo</label>
+          <input type="text" id="reg-nome" required class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-google-blue/40" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Matrícula</label>
+          <input type="text" id="reg-matricula" required placeholder="Ex: 2024001" class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-google-blue/40" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">E-mail (apenas no cadastro)</label>
+          <input type="email" id="reg-email" required class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-google-blue/40" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Cargo Solicitado</label>
+          <select id="reg-cargo" class="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-google-blue/40">
+            <option value="garcom">Garçom</option>
+            <option value="recepcao">Recepção</option>
+            <option value="atendente">Atendente</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-3d w-full bg-google-blue text-white font-bold py-3.5">Enviar Solicitação</button>
+        <button type="button" onclick="showLogin()" class="w-full text-sm text-slate-500 hover:text-slate-800">Voltar ao Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== APP PRINCIPAL ==================== -->
   <div id="app-container" class="hidden">
     <div class="h-1.5 w-full bg-gradient-to-r from-google-blue via-google-red via-google-yellow to-google-green fixed top-0 z-50"></div>
 
@@ -90,30 +149,30 @@
               <span class="text-[11px] font-bold tracking-widest text-google-blue uppercase">Enterprise Hospitality</span>
             </div>
             <h1 class="text-xl md:text-2xl font-extrabold text-slate-900">Laguna Plaza & Mandi</h1>
-            <p class="text-xs text-slate-500">Cardápio Completo · PNR Express · NFC/QR</p>
+            <p class="text-xs text-slate-500" id="header-user-info">—</p>
           </div>
         </div>
 
-        <div class="flex flex-wrap gap-2 bg-white/80 p-1.5 rounded-full border border-slate-200">
-          <button onclick="switchTab('airline')" id="tab-btn-airline" class="btn-3d px-4 py-2.5 text-xs bg-google-blue text-white flex items-center gap-1.5">
-            <i data-lucide="plane" class="w-3.5 h-3.5"></i> Companhias & PNR
-          </button>
-          <button onclick="switchTab('menu')" id="tab-btn-menu" class="btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 flex items-center gap-1.5">
-            <i data-lucide="utensils" class="w-3.5 h-3.5"></i> Cardápio
-          </button>
-          <button onclick="switchTab('rooms')" id="tab-btn-rooms" class="btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 flex items-center gap-1.5">
-            <i data-lucide="bed" class="w-3.5 h-3.5"></i> Quartos
-          </button>
-          <button onclick="switchTab('qrcode')" id="tab-btn-qrcode" class="btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 flex items-center gap-1.5">
-            <i data-lucide="qr-code" class="w-3.5 h-3.5"></i> QR & NFC
-          </button>
+        <div class="flex flex-wrap gap-2 bg-white/80 p-1.5 rounded-full border border-slate-200" id="main-tabs">
+          <!-- Tabs renderizadas conforme cargo -->
         </div>
       </header>
 
       <main class="flex-1">
 
-        <!-- MÓDULO 1: COMPANHIAS & PNR -->
-        <section id="section-airline" class="space-y-6">
+        <!-- ADMIN PANEL -->
+        <section id="section-admin" class="hidden space-y-6">
+          <div class="glass-card p-6 rounded-3xl">
+            <h2 class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <i data-lucide="shield" class="text-google-blue"></i> Painel do Administrador
+            </h2>
+            <p class="text-sm text-slate-500 mb-6">Libere ou negue o acesso de novos integrantes.</p>
+            <div id="pending-list" class="space-y-3"></div>
+          </div>
+        </section>
+
+        <!-- MÓDULO PNR -->
+        <section id="section-airline" class="hidden space-y-6">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-5 space-y-5">
               <div class="inline-flex items-center gap-2 bg-google-blue/10 border border-google-blue/30 px-3 py-1 rounded-full text-google-blue text-xs font-bold">
@@ -123,8 +182,6 @@
                 Gestão de Tripulações<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-google-blue via-google-red to-google-yellow">& Layover Instantâneo</span>
               </h2>
-              <p class="text-slate-600 text-sm">Integração LATAM, GOL, AZUL, TAP e American Airlines. Voucher criptografado + cartão flutuante com QR/NFC.</p>
-              
               <div class="glass-card p-4 rounded-2xl">
                 <h4 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
                   <i data-lucide="bed-double" class="w-4 h-4 text-google-blue"></i> Status Rápido dos Quartos
@@ -148,7 +205,6 @@
                 <h3 class="font-bold text-slate-900">Emissão Expressa de Voucher PNR</h3>
                 <span class="text-[10px] font-mono bg-google-green/15 text-google-green px-2.5 py-1 rounded-full border border-google-green/30">Redis Active</span>
               </div>
-
               <form id="pnr-form" onsubmit="handlePNRSubmit(event)" class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
@@ -195,7 +251,6 @@
           <div id="pnr-success-box" class="hidden mt-8">
             <div id="printable-voucher" class="voucher-card max-w-2xl mx-auto rounded-3xl p-6 md:p-8 relative overflow-hidden">
               <div class="absolute top-0 right-0 w-40 h-40 bg-google-blue/10 rounded-full blur-3xl"></div>
-              
               <div class="flex justify-between items-start border-b border-slate-200 pb-4 mb-4">
                 <div>
                   <span class="text-[10px] font-mono bg-google-blue/15 text-google-blue px-3 py-1 rounded-full font-bold">VOUCHER OFICIAL · LAGUNA PLAZA & MANDI</span>
@@ -207,29 +262,15 @@
                   <p id="v-code" class="text-lg font-mono font-bold text-google-yellow">K89XPL</p>
                 </div>
               </div>
-
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs mb-5">
-                <div>
-                  <span class="text-slate-400 block">HÓSPEDE</span>
-                  <strong id="v-name" class="text-slate-900 text-sm">Cristian Ribeiro Florêncio</strong>
-                </div>
-                <div>
-                  <span class="text-slate-400 block">DOCUMENTO</span>
-                  <strong id="v-doc" class="text-slate-700">000.000.000-00</strong>
-                </div>
-                <div>
-                  <span class="text-slate-400 block">CATEGORIA</span>
-                  <strong id="v-type" class="text-google-green">CREW</strong>
-                </div>
-                <div>
-                  <span class="text-slate-400 block">STATUS</span>
-                  <strong class="text-google-blue">APROVADO</strong>
-                </div>
+                <div><span class="text-slate-400 block">HÓSPEDE</span><strong id="v-name" class="text-slate-900 text-sm">—</strong></div>
+                <div><span class="text-slate-400 block">DOCUMENTO</span><strong id="v-doc" class="text-slate-700">—</strong></div>
+                <div><span class="text-slate-400 block">CATEGORIA</span><strong id="v-type" class="text-google-green">—</strong></div>
+                <div><span class="text-slate-400 block">STATUS</span><strong class="text-google-blue">APROVADO</strong></div>
               </div>
-
               <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200">
                 <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
-                  <img id="v-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=VOUCHER-LAGUNA-PNR" alt="QR Voucher" class="w-28 h-28" />
+                  <img id="v-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=VOUCHER-LAGUNA" alt="QR" class="w-28 h-28" />
                   <p class="text-[9px] text-center font-mono text-slate-500 mt-1">Leia na Recepção / NFC</p>
                 </div>
                 <div class="text-center md:text-right space-y-2">
@@ -248,7 +289,7 @@
           </div>
         </section>
 
-        <!-- MÓDULO 2: CARDÁPIO -->
+        <!-- CARDÁPIO -->
         <section id="section-menu" class="hidden space-y-5">
           <div class="glass-card p-4 md:p-5 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
@@ -267,33 +308,31 @@
               </button>
             </div>
           </div>
-
           <div id="category-container" class="flex gap-2 overflow-x-auto pb-2"></div>
           <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </section>
 
-        <!-- MÓDULO 3: QUARTOS -->
+        <!-- QUARTOS -->
         <section id="section-rooms" class="hidden space-y-6">
           <div class="glass-card p-6 rounded-3xl">
             <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-              <i data-lucide="bed-double" class="text-google-blue"></i> Controle de Quartos (101-429)
+              <i data-lucide="bed-double" class="text-google-blue"></i> Controle de Quartos
             </h2>
             <p class="text-xs text-slate-500 mb-6">Clique no quarto para alternar: Disponível → Ocupado → Manutenção</p>
-            <div class="space-y-6" id="rooms-container"></div>
+            <div class="space-y-8" id="rooms-container"></div>
           </div>
         </section>
 
-        <!-- MÓDULO 4: QR & NFC -->
+        <!-- QR -->
         <section id="section-qrcode" class="hidden max-w-lg mx-auto text-center space-y-6">
           <div class="glass-card p-8 rounded-3xl space-y-5">
             <div class="w-16 h-16 bg-google-blue/10 rounded-2xl mx-auto flex items-center justify-center text-google-blue">
               <i data-lucide="qr-code" class="w-8 h-8"></i>
             </div>
-            <h2 class="text-2xl font-extrabold text-slate-900">QR Code de Acesso à Mesa & Quarto</h2>
-            <p class="text-sm text-slate-600">Escaneie para abrir o cardápio completo ou aproxime o celular com NFC.</p>
+            <h2 class="text-2xl font-extrabold text-slate-900">QR Code de Acesso</h2>
+            <p class="text-sm text-slate-600">Escaneie para abrir o cardápio ou aproxime com NFC.</p>
             <div class="bg-white p-5 rounded-2xl inline-block shadow-lg">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://ws.droppfy.com/cardapio-laguna" alt="QR Code" class="mx-auto rounded-lg" />
-              <p class="text-[10px] font-mono font-bold text-slate-700 mt-2">ws.droppfy.com/cardapio-laguna</p>
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://ws.droppfy.com/cardapio-laguna" alt="QR" class="mx-auto rounded-lg" />
             </div>
             <button onclick="triggerConfetti()" class="btn-3d bg-google-green text-white px-6 py-3 text-sm flex items-center gap-2 mx-auto">
               <i data-lucide="smartphone-nfc" class="w-4 h-4"></i> Testar NFC
@@ -303,7 +342,7 @@
       </main>
 
       <footer class="border-t border-slate-200/80 pt-5 mt-10 text-center text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-3">
-        <p>© 2026 Laguna Plaza Hotel & Restaurante Mandi · US + Israel Tech</p>
+        <p>© 2026 Laguna Plaza Hotel & Restaurante Mandi</p>
         <div class="flex gap-4 font-mono text-[11px]">
           <span class="text-google-green">● Redis</span>
           <span class="text-google-blue">● Cloudflare</span>
@@ -313,7 +352,7 @@
     </div>
   </div>
 
-  <!-- MODAL DE DETALHES DO ITEM (antes de adicionar) -->
+  <!-- MODAL ITEM -->
   <div id="item-modal" class="fixed inset-0 z-50 bg-black/50 hidden items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center">
@@ -327,16 +366,16 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="text-xs font-semibold text-slate-600">Mesa (01-50)</label>
-            <select id="order-mesa" class="w-full mt-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm">
-              <option value="">Selecione</option>
-              <script>for(let i=1;i<=50;i++) document.write(`<option value="Mesa ${String(i).padStart(2,'0')}">Mesa ${String(i).padStart(2,'0')}</option>`)</script>
-            </select>
+            <select id="order-mesa" class="w-full mt-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm"></select>
           </div>
           <div>
             <label class="text-xs font-semibold text-slate-600">Posição (P1-P12)</label>
             <select id="order-posicao" class="w-full mt-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm">
               <option value="">-</option>
-              <script>for(let i=1;i<=12;i++) document.write(`<option value="P${i}">P${i}</option>`)</script>
+              <option value="P1">P1</option><option value="P2">P2</option><option value="P3">P3</option>
+              <option value="P4">P4</option><option value="P5">P5</option><option value="P6">P6</option>
+              <option value="P7">P7</option><option value="P8">P8</option><option value="P9">P9</option>
+              <option value="P10">P10</option><option value="P11">P11</option><option value="P12">P12</option>
             </select>
           </div>
         </div>
@@ -385,13 +424,10 @@
         </div>
         <div>
           <label class="text-xs font-semibold text-slate-600">Observações</label>
-          <textarea id="order-obs" rows="2" placeholder="Ex: sem cebola, bem passado, gelo à parte..." class="w-full mt-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm"></textarea>
+          <textarea id="order-obs" rows="2" placeholder="Ex: sem cebola, bem passado..." class="w-full mt-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm"></textarea>
         </div>
       </div>
-
-      <button onclick="confirmAddToCart()" class="btn-3d w-full bg-google-blue text-white py-3 text-sm font-bold">
-        Adicionar ao Carrinho
-      </button>
+      <button onclick="confirmAddToCart()" class="btn-3d w-full bg-google-blue text-white py-3 text-sm font-bold">Adicionar ao Carrinho</button>
     </div>
   </div>
 
@@ -402,7 +438,7 @@
         <h2 class="font-bold text-lg text-slate-900 flex items-center gap-2">
           <i data-lucide="shopping-bag" class="w-5 h-5 text-google-yellow"></i> Seu Pedido
         </h2>
-        <button onclick="closeCartModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">✕</button>
+        <button onclick="closeCartModal()" class="text-slate-400 hover:text-slate-700 text-xl">✕</button>
       </div>
       <div id="cart-items-list" class="mt-4 space-y-3 flex-1 overflow-y-auto"></div>
       <div class="space-y-3 pt-4 border-t border-slate-100">
@@ -410,27 +446,175 @@
           <span>Total (+10% taxa)</span>
           <span id="cart-total-price" class="text-google-green">R$ 0,00</span>
         </div>
+        <div class="text-[10px] text-slate-500 bg-slate-50 rounded-xl p-3" id="order-footer-info">
+          <!-- Preenchido com dados do atendente -->
+        </div>
         <button onclick="confirmOrder()" class="btn-3d w-full bg-google-green text-white py-3.5 text-sm">Enviar para Cozinha / Quarto</button>
       </div>
     </div>
   </div>
 
+  <!-- INSTALL PROMPT -->
+  <div id="install-prompt" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:w-80 z-50 hidden">
+    <div class="glass-card p-4 rounded-2xl flex items-center gap-3 shadow-xl">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-google-blue to-google-green flex items-center justify-center text-white font-bold">LP</div>
+      <div class="flex-1">
+        <p class="text-sm font-bold text-slate-900">Instalar App</p>
+        <p class="text-xs text-slate-500">Adicione à tela inicial</p>
+      </div>
+      <button onclick="installApp()" class="btn-3d bg-google-blue text-white px-4 py-2 text-xs">Instalar</button>
+      <button onclick="document.getElementById('install-prompt').classList.add('hidden')" class="text-slate-400">✕</button>
+    </div>
+  </div>
+
   <script>
-    // ========== AUTH ==========
-    function handleAuth(e) {
-      e.preventDefault();
-      const pin = document.getElementById('auth-pin').value.trim();
-      if (pin) {
-        document.getElementById('auth-screen').classList.add('hidden');
-        document.getElementById('app-container').classList.remove('hidden');
-        lucide.createIcons();
-        switchTab('airline');
-      } else {
-        alert('Digite um código válido');
-      }
+    // ========== DADOS DE USUÁRIOS (localStorage) ==========
+    // Admin padrão: matrícula 0001 / senha qualquer (biometria)
+    let users = JSON.parse(localStorage.getItem('lp_users') || '[]');
+    let pending = JSON.parse(localStorage.getItem('lp_pending') || '[]');
+    let currentUser = null;
+    let biometricOk = false;
+
+    // Inicializa admin se não existir
+    if (!users.find(u => u.matricula === '0001')) {
+      users.push({ nome: 'Administrador Master', matricula: '0001', email: 'admin@lagunaplaza.com', cargo: 'admin', status: 'aprovado' });
+      localStorage.setItem('lp_users', JSON.stringify(users));
     }
 
-    // ========== MENU DATA (100% completo) ==========
+    // ========== AUTH ==========
+    function showLogin() {
+      document.getElementById('auth-screen').classList.remove('hidden');
+      document.getElementById('auth-screen').classList.add('flex');
+      document.getElementById('register-screen').classList.add('hidden');
+      document.getElementById('register-screen').classList.remove('flex');
+    }
+    function showRegister() {
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('register-screen').classList.remove('hidden');
+      document.getElementById('register-screen').classList.add('flex');
+    }
+
+    function simulateBiometric(type) {
+      const status = document.getElementById('bio-status');
+      status.innerText = type === 'digital' ? 'Lendo digital...' : 'Reconhecendo rosto...';
+      status.className = 'text-xs text-center text-google-yellow';
+      setTimeout(() => {
+        biometricOk = true;
+        status.innerText = '✓ Biometria confirmada';
+        status.className = 'text-xs text-center text-google-green font-bold';
+        document.getElementById('btn-login').disabled = false;
+        document.getElementById('btn-login').classList.remove('opacity-50', 'cursor-not-allowed');
+      }, 1200);
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      if (!biometricOk) return alert('Confirme a biometria primeiro');
+      const mat = document.getElementById('login-matricula').value.trim();
+      const user = users.find(u => u.matricula === mat && u.status === 'aprovado');
+      if (!user) {
+        alert('Matrícula não encontrada ou aguardando aprovação do Admin.');
+        return;
+      }
+      currentUser = user;
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('app-container').classList.remove('hidden');
+      document.getElementById('header-user-info').innerText = `${user.nome} · Matrícula ${user.matricula} · ${user.cargo.toUpperCase()}`;
+      renderTabsByRole(user.cargo);
+      initRooms();
+      lucide.createIcons();
+      // Mostra prompt de instalação
+      setTimeout(() => document.getElementById('install-prompt').classList.remove('hidden'), 2000);
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const novo = {
+        nome: document.getElementById('reg-nome').value.trim(),
+        matricula: document.getElementById('reg-matricula').value.trim(),
+        email: document.getElementById('reg-email').value.trim(),
+        cargo: document.getElementById('reg-cargo').value,
+        status: 'pendente',
+        data: new Date().toLocaleString('pt-BR')
+      };
+      if (users.find(u => u.matricula === novo.matricula) || pending.find(p => p.matricula === novo.matricula)) {
+        alert('Matrícula já existe ou já foi solicitada.');
+        return;
+      }
+      pending.push(novo);
+      localStorage.setItem('lp_pending', JSON.stringify(pending));
+      alert('Solicitação enviada! Aguarde a liberação do Administrador.');
+      showLogin();
+    }
+
+    function renderTabsByRole(cargo) {
+      const tabs = document.getElementById('main-tabs');
+      let html = '';
+      if (cargo === 'admin') {
+        html += tabBtn('admin', 'shield', 'Admin');
+        html += tabBtn('airline', 'plane', 'Companhias & PNR');
+        html += tabBtn('menu', 'utensils', 'Cardápio');
+        html += tabBtn('rooms', 'bed', 'Quartos');
+        html += tabBtn('qrcode', 'qr-code', 'QR & NFC');
+      } else if (cargo === 'recepcao') {
+        html += tabBtn('airline', 'plane', 'Companhias & PNR');
+        html += tabBtn('rooms', 'bed', 'Quartos');
+        html += tabBtn('qrcode', 'qr-code', 'QR & NFC');
+      } else if (cargo === 'garcom' || cargo === 'atendente') {
+        html += tabBtn('menu', 'utensils', 'Cardápio');
+        html += tabBtn('qrcode', 'qr-code', 'QR & NFC');
+      }
+      tabs.innerHTML = html;
+      // Ativa a primeira aba
+      if (cargo === 'admin') switchTab('admin');
+      else if (cargo === 'recepcao') switchTab('airline');
+      else switchTab('menu');
+    }
+
+    function tabBtn(id, icon, label) {
+      return `<button onclick="switchTab('${id}')" id="tab-btn-${id}" class="btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 flex items-center gap-1.5">
+        <i data-lucide="${icon}" class="w-3.5 h-3.5"></i> ${label}
+      </button>`;
+    }
+
+    // ========== ADMIN ==========
+    function renderPending() {
+      const list = document.getElementById('pending-list');
+      if (!pending.length) {
+        list.innerHTML = '<p class="text-slate-400 text-center py-8">Nenhuma solicitação pendente.</p>';
+        return;
+      }
+      list.innerHTML = pending.map((p, idx) => `
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+          <div>
+            <p class="font-bold text-slate-900">${p.nome}</p>
+            <p class="text-xs text-slate-500">Matrícula: ${p.matricula} · ${p.cargo} · ${p.email}</p>
+            <p class="text-[10px] text-slate-400">Solicitado em: ${p.data}</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="approveUser(${idx})" class="btn-3d bg-google-green text-white px-4 py-2 text-xs">Liberar</button>
+            <button onclick="denyUser(${idx})" class="btn-3d bg-google-red text-white px-4 py-2 text-xs">Negar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function approveUser(idx) {
+      const user = pending.splice(idx, 1)[0];
+      user.status = 'aprovado';
+      users.push(user);
+      localStorage.setItem('lp_users', JSON.stringify(users));
+      localStorage.setItem('lp_pending', JSON.stringify(pending));
+      renderPending();
+      alert(`${user.nome} liberado com sucesso!`);
+    }
+    function denyUser(idx) {
+      pending.splice(idx, 1);
+      localStorage.setItem('lp_pending', JSON.stringify(pending));
+      renderPending();
+    }
+
+    // ========== RESTANTE DO SISTEMA (mantido + melhorado) ==========
     const categories = [
       { id: 'all', title: '✨ Todos' },
       { id: 'entradas', title: '🥟 Entradas & Sopas' },
@@ -557,7 +741,7 @@
       {id:'d19',category_id:'bebidas',name:'Cerveja Long Neck Heineken / Budweiser',description:'Garrafa 330ml.',price:12.00,image:'https://images.unsplash.com/photo-1608270105740-972173f4439c?auto=format&fit=crop&w=600&q=80'},
       {id:'d20',category_id:'bebidas',name:'Café Expresso',description:'Quente e encorpado.',price:5.00,image:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80'},
       {id:'d21',category_id:'bebidas',name:'Red Bull Energy Drink',description:'Lata 250ml.',price:23.00,image:'https://images.unsplash.com/photo-1622543925917-763c33d1a66e?auto=format&fit=crop&w=600&q=80'},
-      {id:'d22',category_id:'bebidas',name:'Refrigerante em Lata',description:'Escolha: Coca-Cola, Zero, Guaraná, Guaraná Zero, Sprite, Fanta, Schweppes.',price:8.00,image:'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80', isSoftDrink: true},
+      {id:'d22',category_id:'bebidas',name:'Refrigerante em Lata',description:'Escolha: Coca-Cola, Zero, Guaraná, Guaraná Zero, Sprite, Fanta, Schweppes.',price:8.00,image:'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80',isSoftDrink:true},
       {id:'d23',category_id:'bebidas',name:'Suco Natural ou Polpa',description:'Laranja, abacaxi, limão, maracujá, morango, acerola, uva, caju, manga etc.',price:12.00,image:'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80'},
       {id:'d24',category_id:'bebidas',name:'Jarra de Suco 750ml',description:'Natural ou polpa para compartilhar.',price:20.00,image:'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80'},
 
@@ -571,111 +755,77 @@
     let currentCategory = 'all';
     let cart = [];
     let selectedItem = null;
-    let roomStatus = {}; // room number -> status
+    let roomStatus = {};
 
-    // ========== ROOMS ==========
+    // ROOMS
     function initRooms() {
-      const floors = [
-        { start: 101, end: 129 },
-        { start: 201, end: 229 },
-        { start: 301, end: 329 },
-        { start: 401, end: 429 }
-      ];
-      floors.forEach(f => {
-        for (let i = f.start; i <= f.end; i++) {
-          roomStatus[i] = Math.random() > 0.6 ? 'available' : (Math.random() > 0.5 ? 'occupied' : 'maintenance');
-        }
+      const floors = [[101,129],[201,229],[301,329],[401,429]];
+      floors.forEach(([s,e]) => {
+        for (let i=s; i<=e; i++) roomStatus[i] = Math.random()>0.6 ? 'available' : (Math.random()>0.5 ? 'occupied' : 'maintenance');
       });
       updateRoomCounts();
     }
-
     function updateRoomCounts() {
-      let a = 0, o = 0, m = 0;
-      Object.values(roomStatus).forEach(s => {
-        if (s === 'available') a++;
-        else if (s === 'occupied') o++;
-        else m++;
-      });
+      let a=0,o=0,m=0;
+      Object.values(roomStatus).forEach(s => { if(s==='available')a++; else if(s==='occupied')o++; else m++; });
       document.getElementById('count-available').innerText = a;
       document.getElementById('count-occupied').innerText = o;
       document.getElementById('count-maintenance').innerText = m;
     }
-
     function toggleRoom(num) {
-      const current = roomStatus[num];
-      if (current === 'available') roomStatus[num] = 'occupied';
-      else if (current === 'occupied') roomStatus[num] = 'maintenance';
-      else roomStatus[num] = 'available';
-      renderRooms();
-      updateRoomCounts();
+      const cur = roomStatus[num];
+      roomStatus[num] = cur==='available' ? 'occupied' : (cur==='occupied' ? 'maintenance' : 'available');
+      renderRooms(); updateRoomCounts();
     }
-
     function renderRooms() {
       const container = document.getElementById('rooms-container');
       const floors = [
-        { label: '1º Andar (101-129)', start: 101, end: 129 },
-        { label: '2º Andar (201-229)', start: 201, end: 229 },
-        { label: '3º Andar (301-329)', start: 301, end: 329 },
-        { label: '4º Andar (401-429)', start: 401, end: 429 }
+        {label:'1º Andar (101-129)',start:101,end:129},
+        {label:'2º Andar (201-229)',start:201,end:229},
+        {label:'3º Andar (301-329)',start:301,end:329},
+        {label:'4º Andar (401-429)',start:401,end:429}
       ];
-      const colors = {
-        available: 'bg-google-green/15 border-google-green text-google-green',
-        occupied: 'bg-google-red/15 border-google-red text-google-red',
-        maintenance: 'bg-google-yellow/20 border-google-yellow text-amber-700'
-      };
-      const labels = { available: 'Disponível', occupied: 'Ocupado', maintenance: 'Manutenção' };
-
+      const colors = {available:'bg-google-green/15 border-google-green text-google-green',occupied:'bg-google-red/15 border-google-red text-google-red',maintenance:'bg-google-yellow/20 border-google-yellow text-amber-700'};
+      const labels = {available:'Disponível',occupied:'Ocupado',maintenance:'Manutenção'};
       container.innerHTML = floors.map(f => {
         let rooms = '';
-        for (let i = f.start; i <= f.end; i++) {
-          const st = roomStatus[i] || 'available';
-          rooms += `<div onclick="toggleRoom(${i})" class="room-btn rounded-xl border-2 p-2 text-center ${colors[st]}">
-            <p class="font-bold text-sm">${i}</p>
-            <p class="text-[9px] font-semibold">${labels[st]}</p>
-          </div>`;
+        for (let i=f.start;i<=f.end;i++) {
+          const st = roomStatus[i]||'available';
+          rooms += `<div onclick="toggleRoom(${i})" class="room-btn rounded-xl border-2 p-2 text-center ${colors[st]}"><p class="font-bold text-sm">${i}</p><p class="text-[9px] font-semibold">${labels[st]}</p></div>`;
         }
-        return `<div>
-          <h4 class="text-sm font-bold text-slate-700 mb-2">${f.label}</h4>
-          <div class="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-10 gap-2">${rooms}</div>
-        </div>`;
+        return `<div><h4 class="text-sm font-bold text-slate-700 mb-2">${f.label}</h4><div class="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-10 gap-2">${rooms}</div></div>`;
       }).join('');
     }
 
-    // ========== TABS ==========
+    // TABS
     function switchTab(tab) {
-      ['airline','menu','rooms','qrcode'].forEach(t => {
-        document.getElementById('section-'+t).classList.add('hidden');
-        document.getElementById('tab-btn-'+t).className = 'btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 flex items-center gap-1.5';
+      ['admin','airline','menu','rooms','qrcode'].forEach(t => {
+        const el = document.getElementById('section-'+t);
+        if (el) el.classList.add('hidden');
+        const btn = document.getElementById('tab-btn-'+t);
+        if (btn) btn.className = 'btn-3d px-4 py-2.5 text-xs bg-slate-100 text-slate-600 flex items-center gap-1.5';
       });
-      document.getElementById('section-'+tab).classList.remove('hidden');
-      const colors = {airline:'bg-google-blue text-white', menu:'bg-google-yellow text-slate-900', rooms:'bg-google-green text-white', qrcode:'bg-google-red text-white'};
-      document.getElementById('tab-btn-'+tab).className = 'btn-3d px-4 py-2.5 text-xs ' + colors[tab] + ' flex items-center gap-1.5 shadow-md';
+      const section = document.getElementById('section-'+tab);
+      if (section) section.classList.remove('hidden');
+      const colors = {admin:'bg-google-blue text-white',airline:'bg-google-blue text-white',menu:'bg-google-yellow text-slate-900',rooms:'bg-google-green text-white',qrcode:'bg-google-red text-white'};
+      const btn = document.getElementById('tab-btn-'+tab);
+      if (btn) btn.className = 'btn-3d px-4 py-2.5 text-xs ' + (colors[tab]||'') + ' flex items-center gap-1.5 shadow-md';
       if (tab === 'menu') renderMenu();
       if (tab === 'rooms') renderRooms();
+      if (tab === 'admin') renderPending();
       lucide.createIcons();
     }
 
-    // ========== MENU ==========
-    function renderMenu(q = '') {
+    // MENU
+    function renderMenu(q='') {
       const tabs = document.getElementById('category-container');
-      tabs.innerHTML = categories.map(c => `
-        <button onclick="setCategory('${c.id}')" class="btn-3d px-3.5 py-2 text-xs whitespace-nowrap ${currentCategory===c.id ? 'bg-google-yellow text-slate-900 font-bold' : 'bg-white text-slate-600 border border-slate-200'}">
-          ${c.title}
-        </button>`).join('');
-
-      const filtered = menuItems.filter(i => {
-        const cat = currentCategory === 'all' || i.category_id === currentCategory;
-        const search = i.name.toLowerCase().includes(q.toLowerCase()) || i.description.toLowerCase().includes(q.toLowerCase());
-        return cat && search;
-      });
-
+      tabs.innerHTML = categories.map(c => `<button onclick="setCategory('${c.id}')" class="btn-3d px-3.5 py-2 text-xs whitespace-nowrap ${currentCategory===c.id?'bg-google-yellow text-slate-900 font-bold':'bg-white text-slate-600 border border-slate-200'}">${c.title}</button>`).join('');
+      const filtered = menuItems.filter(i => (currentCategory==='all'||i.category_id===currentCategory) && (i.name.toLowerCase().includes(q.toLowerCase())||i.description.toLowerCase().includes(q.toLowerCase())));
       document.getElementById('menu-grid').innerHTML = filtered.map(item => `
         <div class="glass-card rounded-3xl overflow-hidden flex flex-col group">
           <div class="relative h-44 overflow-hidden">
             <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-            <span class="absolute bottom-3 left-3 bg-white/95 text-google-green font-mono text-xs px-3 py-1 rounded-full font-bold shadow">
-              R$ ${item.price.toFixed(2).replace('.',',')}
-            </span>
+            <span class="absolute bottom-3 left-3 bg-white/95 text-google-green font-mono text-xs px-3 py-1 rounded-full font-bold shadow">R$ ${item.price.toFixed(2).replace('.',',')}</span>
           </div>
           <div class="p-4 flex-1 flex flex-col justify-between gap-3">
             <div>
@@ -689,23 +839,19 @@
         </div>`).join('') || '<p class="col-span-full text-center text-slate-400 py-16">Nenhum item encontrado.</p>';
       lucide.createIcons();
     }
+    function setCategory(id){ currentCategory=id; renderMenu(document.getElementById('menu-search').value); }
+    function filterMenu(v){ renderMenu(v); }
 
-    function setCategory(id) { currentCategory = id; renderMenu(document.getElementById('menu-search').value); }
-    function filterMenu(v) { renderMenu(v); }
-
-    // ========== ITEM MODAL ==========
+    // ITEM MODAL
     function openItemModal(id) {
       selectedItem = menuItems.find(i => i.id === id);
       document.getElementById('modal-item-name').innerText = selectedItem.name;
       document.getElementById('modal-item-desc').innerText = selectedItem.description;
       document.getElementById('modal-item-price').innerText = `R$ ${selectedItem.price.toFixed(2).replace('.',',')}`;
-      
-      // Soft drink options
-      const softDiv = document.getElementById('soft-drink-options');
-      if (selectedItem.isSoftDrink) softDiv.classList.remove('hidden');
-      else softDiv.classList.add('hidden');
-
-      // Reset fields
+      const mesaSelect = document.getElementById('order-mesa');
+      mesaSelect.innerHTML = '<option value="">Selecione</option>';
+      for(let i=1;i<=50;i++) mesaSelect.innerHTML += `<option value="Mesa ${String(i).padStart(2,'0')}">Mesa ${String(i).padStart(2,'0')}</option>`;
+      document.getElementById('soft-drink-options').classList.toggle('hidden', !selectedItem.isSoftDrink);
       document.getElementById('order-mesa').value = '';
       document.getElementById('order-posicao').value = '';
       document.getElementById('order-quarto').value = '';
@@ -713,18 +859,14 @@
       document.getElementById('order-crianca').value = 'Não';
       document.getElementById('order-lactose').value = 'Normal';
       document.getElementById('order-obs').value = '';
-      if (selectedItem.isSoftDrink) document.getElementById('order-refri').value = 'Coca-Cola';
-
       document.getElementById('item-modal').classList.remove('hidden');
       document.getElementById('item-modal').classList.add('flex');
     }
-
     function closeItemModal() {
       document.getElementById('item-modal').classList.add('hidden');
       document.getElementById('item-modal').classList.remove('flex');
       selectedItem = null;
     }
-
     function confirmAddToCart() {
       if (!selectedItem) return;
       const extras = {
@@ -737,98 +879,95 @@
         obs: document.getElementById('order-obs').value,
         refri: selectedItem.isSoftDrink ? document.getElementById('order-refri').value : null
       };
-      cart.push({ ...selectedItem, qty: 1, extras, cartId: Date.now() });
+      cart.push({...selectedItem, qty:1, extras, cartId:Date.now()});
       updateCartUI();
       closeItemModal();
-      confetti({ particleCount: 30, spread: 50, origin: { y: 0.8 } });
+      confetti({particleCount:30,spread:50,origin:{y:0.8}});
     }
 
-    // ========== CART ==========
+    // CART
     function updateCartUI() {
-      const count = cart.reduce((s, i) => s + i.qty, 0);
-      const total = cart.reduce((s, i) => s + i.price * i.qty, 0) * 1.1;
+      const count = cart.reduce((s,i)=>s+i.qty,0);
+      const total = cart.reduce((s,i)=>s+i.price*i.qty,0)*1.1;
       document.getElementById('cart-counter').innerText = count;
       document.getElementById('cart-total-price').innerText = `R$ ${total.toFixed(2).replace('.',',')}`;
+      const now = new Date();
+      document.getElementById('order-footer-info').innerHTML = currentUser ? 
+        `<strong>Atendente:</strong> ${currentUser.nome} · Matrícula ${currentUser.matricula}<br>
+         <strong>Data/Hora:</strong> ${now.toLocaleDateString('pt-BR')} às ${now.toLocaleTimeString('pt-BR')}` : '';
       
-      document.getElementById('cart-items-list').innerHTML = cart.map((i, idx) => {
-        let extraInfo = [];
-        if (i.extras.mesa) extraInfo.push(i.extras.mesa);
-        if (i.extras.posicao) extraInfo.push(i.extras.posicao);
-        if (i.extras.quarto) extraInfo.push('Qto ' + i.extras.quarto);
-        if (i.extras.area) extraInfo.push(i.extras.area);
-        if (i.extras.crianca === 'Sim') extraInfo.push('Criança');
-        if (i.extras.lactose !== 'Normal') extraInfo.push(i.extras.lactose);
-        if (i.extras.refri) extraInfo.push(i.extras.refri);
-        if (i.extras.obs) extraInfo.push('Obs: ' + i.extras.obs);
-        
+      document.getElementById('cart-items-list').innerHTML = cart.map((i,idx) => {
+        const extra = [];
+        if(i.extras.mesa) extra.push(i.extras.mesa);
+        if(i.extras.posicao) extra.push(i.extras.posicao);
+        if(i.extras.quarto) extra.push('Qto '+i.extras.quarto);
+        if(i.extras.area) extra.push(i.extras.area);
+        if(i.extras.crianca==='Sim') extra.push('Criança');
+        if(i.extras.lactose!=='Normal') extra.push(i.extras.lactose);
+        if(i.extras.refri) extra.push(i.extras.refri);
+        if(i.extras.obs) extra.push('Obs: '+i.extras.obs);
         return `<div class="flex justify-between items-start text-sm border-b border-slate-100 pb-3">
           <div class="flex-1">
             <p class="font-medium text-slate-900">${i.name}</p>
             <p class="text-xs text-slate-400">R$ ${i.price.toFixed(2)} × ${i.qty}</p>
-            ${extraInfo.length ? `<p class="text-[10px] text-google-blue mt-0.5">${extraInfo.join(' · ')}</p>` : ''}
+            ${extra.length?`<p class="text-[10px] text-google-blue mt-0.5">${extra.join(' · ')}</p>`:''}
           </div>
           <div class="flex items-center gap-2">
-            <p class="font-bold text-google-green">R$ ${(i.price * i.qty).toFixed(2)}</p>
-            <button onclick="removeFromCart(${idx})" class="text-google-red hover:bg-red-50 p-1.5 rounded-full">
-              <i data-lucide="trash-2" class="w-4 h-4"></i>
-            </button>
+            <p class="font-bold text-google-green">R$ ${(i.price*i.qty).toFixed(2)}</p>
+            <button onclick="removeFromCart(${idx})" class="text-google-red hover:bg-red-50 p-1.5 rounded-full"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
           </div>
         </div>`;
       }).join('') || '<p class="text-center text-slate-400 py-10">Carrinho vazio</p>';
       lucide.createIcons();
     }
-
-    function removeFromCart(idx) {
-      cart.splice(idx, 1);
-      updateCartUI();
+    function removeFromCart(idx){ cart.splice(idx,1); updateCartUI(); }
+    function openCartModal(){ document.getElementById('cart-modal').classList.remove('hidden'); document.getElementById('cart-modal').classList.add('flex'); updateCartUI(); }
+    function closeCartModal(){ document.getElementById('cart-modal').classList.add('hidden'); document.getElementById('cart-modal').classList.remove('flex'); }
+    function confirmOrder(){
+      if(!cart.length) return alert('Carrinho vazio');
+      confetti({particleCount:120,spread:80,origin:{y:0.6}});
+      alert(`Pedido enviado com sucesso!\n\nAtendente: ${currentUser.nome}\nMatrícula: ${currentUser.matricula}\nData/Hora: ${new Date().toLocaleString('pt-BR')}`);
+      cart=[]; updateCartUI(); closeCartModal();
     }
 
-    function openCartModal() {
-      document.getElementById('cart-modal').classList.remove('hidden');
-      document.getElementById('cart-modal').classList.add('flex');
-      updateCartUI();
-    }
-    function closeCartModal() {
-      document.getElementById('cart-modal').classList.add('hidden');
-      document.getElementById('cart-modal').classList.remove('flex');
-    }
-
-    function confirmOrder() {
-      if (!cart.length) return alert('Carrinho vazio');
-      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-      alert('Pedido enviado com sucesso para a cozinha / quarto!');
-      cart = [];
-      updateCartUI();
-      closeCartModal();
-    }
-
-    // ========== PNR ==========
-    function handlePNRSubmit(e) {
+    // PNR
+    function handlePNRSubmit(e){
       e.preventDefault();
-      const airline = document.getElementById('pnr-airline').value;
-      const code = document.getElementById('pnr-code').value.toUpperCase();
-      const name = document.getElementById('pnr-name').value;
-      const doc = document.getElementById('pnr-doc').value;
-      const type = document.getElementById('pnr-type').value;
-
-      document.getElementById('v-airline').innerText = airline + ' AIRLINES';
-      document.getElementById('v-code').innerText = code;
-      document.getElementById('v-name').innerText = name;
-      document.getElementById('v-doc').innerText = doc;
-      document.getElementById('v-type').innerText = type;
-      document.getElementById('v-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=VOUCHER-${airline}-${code}-${name.replace(/\s/g,'')}`;
-
+      const airline=document.getElementById('pnr-airline').value;
+      const code=document.getElementById('pnr-code').value.toUpperCase();
+      const name=document.getElementById('pnr-name').value;
+      const doc=document.getElementById('pnr-doc').value;
+      const type=document.getElementById('pnr-type').value;
+      document.getElementById('v-airline').innerText=airline+' AIRLINES';
+      document.getElementById('v-code').innerText=code;
+      document.getElementById('v-name').innerText=name;
+      document.getElementById('v-doc').innerText=doc;
+      document.getElementById('v-type').innerText=type;
+      document.getElementById('v-qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=VOUCHER-${airline}-${code}`;
       document.getElementById('pnr-success-box').classList.remove('hidden');
-      document.getElementById('pnr-success-box').scrollIntoView({ behavior: 'smooth' });
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      document.getElementById('pnr-success-box').scrollIntoView({behavior:'smooth'});
+      confetti({particleCount:100,spread:70,origin:{y:0.6}});
     }
+    function triggerConfetti(){ confetti({particleCount:100,spread:70,origin:{y:0.6}}); }
 
-    function triggerConfetti() {
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    // INSTALL APP
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('install-prompt').classList.remove('hidden');
+    });
+    function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => deferredPrompt = null);
+      } else {
+        alert('Para instalar: abra o menu do navegador e escolha "Adicionar à tela inicial"');
+      }
+      document.getElementById('install-prompt').classList.add('hidden');
     }
 
     // INIT
-    initRooms();
     lucide.createIcons();
   </script>
 </body>
