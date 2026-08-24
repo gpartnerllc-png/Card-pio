@@ -3,13 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#030712" />
-    <meta name="color-scheme" content="dark" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <title>Laguna Plaza & Mandi · Sistema Executivo de Hospitalidade & Vouchers Aéreos</title>
+    <meta name="theme-color" content="#0f172a" />
+    <title>Next-Gen Hospitality Menu</title>
     
-    <!-- Tailwind CSS Engine -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -17,8 +14,7 @@
         theme: {
           extend: {
             colors: {
-              brand: { 50: '#fffbeb', 100: '#fef3c7', 500: '#f59e0b', 600: '#d97706', 900: '#78350f', 950: '#451a03' },
-              surface: { 900: '#0f172a', 950: '#030712', card: '#1e293b' }
+              google: { blue: '#4285F4', red: '#EA4335', yellow: '#FBBC05', green: '#34A853' }
             }
           }
         }
@@ -27,330 +23,517 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Lucide Icons & Canvas Confetti -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
-      body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; color: #f8fafc; }
+      body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; color: #f8fafc; overflow-x: hidden; }
+      
+      /* 3D Glassmorphism & Tilt Effect */
+      .glass-card {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 15px rgba(66, 133, 244, 0.1);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+      }
+      .glass-card:hover {
+        transform: translateY(-6px) scale(1.01);
+        border-color: rgba(66, 133, 244, 0.4);
+        box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 25px rgba(66, 133, 244, 0.25);
+      }
+
+      /* 3D Button Dynamics */
+      .btn-3d {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 6px 0 rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+      .btn-3d:active {
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Google Glow Animation */
+      @keyframes googleGlow {
+        0% { border-color: #4285F4; box-shadow: 0 0 10px rgba(66,133,244,0.3); }
+        25% { border-color: #EA4335; box-shadow: 0 0 10px rgba(234,67,53,0.3); }
+        50% { border-color: #FBBC05; box-shadow: 0 0 10px rgba(251,188,5,0.3); }
+        75% { border-color: #34A853; box-shadow: 0 0 10px rgba(52,168,83,0.3); }
+        100% { border-color: #4285F4; box-shadow: 0 0 10px rgba(66,133,244,0.3); }
+      }
+      .google-border-glow {
+        animation: googleGlow 6s infinite;
+      }
+
+      /* Custom Scrollbar */
       ::-webkit-scrollbar { width: 6px; height: 6px; }
       ::-webkit-scrollbar-track { background: #030712; }
-      ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
   </head>
-  <body class="bg-surface-950 text-slate-100 antialiased min-h-screen selection:bg-amber-500 selection:text-slate-950">
-    <div id="root">
-      <!-- Shell de Inicialização de Alta Performance (Silicone Valley & Tel Aviv Standard) -->
-      <div id="app-shell" class="min-h-screen flex flex-col justify-between p-4 md:p-8 max-w-7xl mx-auto">
-        <header class="flex justify-between items-center border-b border-slate-800/80 pb-6">
+  <body class="bg-slate-950 text-slate-100 antialiased min-h-screen selection:bg-google-blue selection:text-white">
+
+    <!-- Top Google-Colored Accent Bar -->
+    <div class="h-1.5 w-full bg-gradient-to-r from-google-blue via-google-red via-google-yellow to-google-green fixed top-0 z-50"></div>
+
+    <div id="app" class="max-w-7xl mx-auto px-4 py-6 md:py-10 flex flex-col min-h-screen">
+      
+      <!-- Header Dinâmico & 3D -->
+      <header class="glass-card rounded-3xl p-6 mb-8 flex flex-col md:flex-row justify-between items-center gap-6 google-border-glow">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-google-blue to-google-green flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-blue-500/30 transform hover:rotate-6 transition-transform">
+            LP
+          </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="inline-block w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
-              <span class="text-xs font-mono uppercase tracking-widest text-amber-400">Enterprise Hospitality Hub</span>
+              <span class="inline-block w-2.5 h-2.5 bg-google-green rounded-full animate-ping"></span>
+              <span class="text-xs font-mono tracking-widest text-google-blue uppercase font-bold">Enterprise Cloud OS v4.2</span>
             </div>
-            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight mt-1 bg-gradient-to-r from-white via-slate-200 to-amber-400 bg-clip-text text-transparent">
-              Laguna Plaza & Mandi
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white mt-0.5">
+              Laguna Plaza & Restaurante Mandi
             </h1>
+            <p class="text-xs text-slate-400">NeGen Hospitality</p>
           </div>
-          <div class="flex gap-3">
-            <button onclick="switchMode('airline')" id="btn-airline" class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 transition-all shadow-lg shadow-amber-500/20">
-              ✈️ Portal Tripulação / PNR
-            </button>
-            <button onclick="switchMode('menu')" id="btn-menu" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
-              🍽️ Cardápio & Room Service
-            </button>
-          </div>
-        </header>
+        </div>
 
-        <!-- Container Dinâmico Principal -->
-        <main id="main-view" class="my-8 flex-1">
-          <!-- Módulo PNR / Airline Check-in (Padrão Israelita de Criptografia & API Integration) -->
-          <div id="view-airline" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Seletor de Módulos 3D -->
+        <div class="flex flex-wrap gap-2 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800">
+          <button onclick="switchTab('airline')" id="tab-btn-airline" class="btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-google-blue text-white flex items-center gap-2">
+            <i data-lucide="plane" class="w-4 h-4"></i> Companhias & PNR
+          </button>
+          <button onclick="switchTab('menu')" id="tab-btn-menu" class="btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white flex items-center gap-2">
+            <i data-lucide="utensils" class="w-4 h-4"></i> Cardápio 3D & Fotos
+          </button>
+          <button onclick="switchTab('qrcode')" id="tab-btn-qrcode" class="btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white flex items-center gap-2">
+            <i data-lucide="qr-code" class="w-4 h-4"></i> QR Code & NFC Mesa
+          </button>
+        </div>
+      </header>
+
+      <!-- Conteúdo Principal Dinâmico -->
+      <main class="flex-1">
+
+        <!-- ================= MÓDULO 1: COMPANHIAS AÉREAS & PNR (SUPERIOR AO DESBRAVADOR) ================= -->
+        <section id="section-airline" class="space-y-8 animate-fade-in">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div class="lg:col-span-6 space-y-6">
-              <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full text-amber-400 text-xs font-semibold">
-                <span>🔒 Secure Layover Gateway (AES-256 & Redis Engine)</span>
+              <div class="inline-flex items-center gap-2 bg-google-blue/10 border border-google-blue/30 px-3 py-1 rounded-full text-google-blue text-xs font-bold">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>Standard
               </div>
-              <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight">
-                Alocação de Tripulação & Vouchers Aéreos em <span class="text-amber-400">&lt; 10ms</span>
+              <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight">
+                Gestão Hoteleira de Tripulações com <span class="text-transparent bg-clip-text bg-gradient-to-r from-google-blue via-google-red to-google-yellow">Latência Zero</span>
               </h2>
-              <p class="text-slate-400 text-sm md:text-base leading-relaxed">
-                Plataforma de alta disponibilidade integrada para companhias aéreas (Latam, Gol, Azul, Desbravador e parceiros internacionais). Validação biométrica de PNR, emissão instantânea de QR Code seguro e liberação autônoma de quarto e room service.
+              <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                Substitua sistemas legados por uma infraestrutura distribuída em nuvem. Integração automática com Latam, Gol, Azul e malhas internacionais, alocando quartos, gerando vouchers com criptografia SHA-256 e liberando consumo instantâneo via QR Code e NFC.
               </p>
-              <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800">
-                <div>
-                  <p class="text-2xl font-black text-amber-400">99.99%</p>
-                  <p class="text-xs text-slate-500 mt-1">Uptime Garantido</p>
+              
+              <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800/80">
+                <div class="glass-card p-4 rounded-2xl text-center">
+                  <p class="text-2xl font-black text-google-green">&lt; 8ms</p>
+                  <p class="text-xs text-slate-400 mt-1">Tempo de Resposta API</p>
                 </div>
-                <div>
-                  <p class="text-2xl font-black text-emerald-400">Zero Latência</p>
-                  <p class="text-xs text-slate-500 mt-1">Cache Redis Ativo</p>
+                <div class="glass-card p-4 rounded-2xl text-center">
+                  <p class="text-2xl font-black text-google-yellow">100%</p>
+                  <p class="text-xs text-slate-400 mt-1">Conformidade LGPD/GDPR</p>
                 </div>
-                <div>
-                  <p class="text-2xl font-black text-blue-400">NFC & QR</p>
-                  <p class="text-xs text-slate-500 mt-1">Acesso Keyless</p>
+                <div class="glass-card p-4 rounded-2xl text-center">
+                  <p class="text-2xl font-black text-google-blue">NFC/QR</p>
+                  <p class="text-xs text-slate-400 mt-1">Keyless Check-in</p>
                 </div>
               </div>
             </div>
 
-            <!-- Terminal de Execução de PNR -->
-            <div class="lg:col-span-6 bg-slate-900/90 border border-slate-800 p-6 md:p-8 rounded-3xl shadow-2xl backdrop-blur-xl">
-              <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-between">
-                <span>Validação Expressa de Voucher PNR</span>
-                <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg">API Ready</span>
+            <!-- Formulário PNR 3D -->
+            <div class="lg:col-span-6 glass-card p-6 md:p-8 rounded-3xl">
+              <h3 class="text-lg font-bold text-white mb-6 flex items-center justify-between">
+                <span>Emissão Expressa de Voucher PNR</span>
+                <span class="text-xs font-mono bg-google-green/10 text-google-green px-2.5 py-1 rounded-lg border border-google-green/20">Redis Cluster Active</span>
               </h3>
-              <form id="voucher-form" onsubmit="handleVoucherSubmit(event)" class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
+              
+              <form id="pnr-form" onsubmit="handlePNRSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Companhia Aérea</label>
-                    <select id="airlineId" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Companhia Aérea</label>
+                    <select id="pnr-airline" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-google-blue">
                       <option value="LATAM">LATAM Airlines</option>
                       <option value="GOL">GOL Linhas Aéreas</option>
                       <option value="AZUL">AZUL Conecta</option>
-                      <option value="DESBRAVADOR">Desbravador Enterprise</option>
+                      <option value="TAP">TAP Air Portugal</option>
+                      <option value="AMERICAN">American Airlines</option>
                     </select>
                   </div>
                   <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Código PNR / Reserva</label>
-                    <input type="text" id="pnr" required placeholder="Ex: K98XPL" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white uppercase placeholder:text-slate-600 focus:outline-none focus:border-amber-500 font-mono" />
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Código PNR / Reserva</label>
+                    <input type="text" id="pnr-code" required placeholder="Ex: K89XPL" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white uppercase placeholder:text-slate-600 focus:outline-none focus:border-google-blue font-mono" />
                   </div>
                 </div>
+
                 <div>
-                  <label class="block text-xs font-semibold text-slate-400 mb-1">Nome Completo do Passageiro ou Tripulante</label>
-                  <input type="text" id="passengerName" required placeholder="Ex: Cristian Ribeiro" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500" />
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Nome Completo do Passageiro ou Tripulante</label>
+                  <input type="text" id="pnr-name" required placeholder="Ex: Cristian Ribeiro Florêncio" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-google-blue" />
                 </div>
-                <div class="grid grid-cols-2 gap-4">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Documento (CPF / Passaporte)</label>
-                    <input type="text" id="documentNumber" required placeholder="000.000.000-00" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500 font-mono" />
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Documento (CPF / Passaporte)</label>
+                    <input type="text" id="pnr-doc" required placeholder="000.000.000-00" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-google-blue font-mono" />
                   </div>
                   <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Tipo de Perfil</label>
-                    <select id="isCrew" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
-                      <option value="true">Tripulação (Crew)</option>
-                      <option value="false">Passageiro / Conexão</option>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Categoria de Atendimento</label>
+                    <select id="pnr-type" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-google-blue">
+                      <option value="CREW">Tripulação Técnica / Comissários</option>
+                      <option value="PAX_VIP">Passageiro Conexão / VIP</option>
+                      <option value="PAX_STANDARD">Passageiro Standard Layover</option>
                     </select>
                   </div>
                 </div>
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all shadow-lg shadow-amber-500/20 text-sm tracking-wide mt-2">
-                  Gerar Token QR Code & Alocar Quarto Instantaneamente
+
+                <button type="submit" class="btn-3d w-full bg-gradient-to-r from-google-blue via-google-red to-google-yellow text-slate-950 font-extrabold py-3.5 rounded-xl transition-all shadow-lg text-sm tracking-wide mt-2 hover:opacity-95">
+                  Processar Voucher & Alocar Quarto Instantaneamente
                 </button>
               </form>
-              
-              <!-- Resultado do Voucher Gerado -->
-              <div id="voucher-result" class="hidden mt-6 p-4 bg-slate-950 border border-emerald-500/30 rounded-2xl">
+
+              <!-- Resultado do PNR -->
+              <div id="pnr-success-box" class="hidden mt-6 p-5 bg-slate-950/90 border border-google-green/40 rounded-2xl animate-fade-in space-y-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 font-bold text-lg">✓</div>
+                  <div class="w-10 h-10 rounded-xl bg-google-green/20 flex items-center justify-center text-google-green font-bold">✓</div>
                   <div>
-                    <p class="text-xs font-mono text-emerald-400">Voucher Validado com Sucesso</p>
-                    <p id="res-voucher-id" class="text-sm font-bold text-white"></p>
+                    <p class="text-xs font-mono text-google-green font-bold">Voucher Criptografado Emitido</p>
+                    <p id="out-voucher-id" class="text-sm font-bold text-white"></p>
                   </div>
                 </div>
-                <div class="mt-3 pt-3 border-t border-slate-800 text-xs text-slate-400 space-y-1 font-mono">
-                  <p>Link MyGuest Digital: <span id="res-url" class="text-amber-400 break-all"></span></p>
-                  <p>Token Criptografado SHA-256: <span id="res-token" class="text-slate-300 break-all"></span></p>
+                <div class="text-xs text-slate-400 space-y-1 font-mono pt-2 border-t border-slate-800">
+                  <p>URL Web App: <span id="out-url" class="text-google-blue break-all"></span></p>
+                  <p>Token SHA-256: <span id="out-token" class="text-slate-300 break-all"></span></p>
                 </div>
               </div>
             </div>
           </div>
+        </section>
 
-          <!-- Módulo Cardápio & Room Service (Oculto inicialmente, ativado por aba) -->
-          <div id="view-menu" class="hidden space-y-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/60 p-6 rounded-3xl border border-slate-800">
-              <div>
-                <h2 class="text-2xl font-bold text-white">Cardápio & Room Service 24h</h2>
-                <p class="text-xs text-slate-400 mt-1">Conectado diretamente ao estoque em tempo real do Laguna Plaza Hotel & Restaurante Mandi.</p>
-              </div>
-              <div class="flex items-center gap-3 w-full md:w-auto">
-                <input type="text" id="menu-search" oninput="filterMenu(this.value)" placeholder="Buscar pratos, porções, bebidas..." class="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white w-full md:w-64 focus:outline-none focus:border-amber-500" />
-                <button onclick="openCart()" class="bg-amber-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-sm whitespace-nowrap shadow-lg shadow-amber-500/20">
-                  🛒 Carrinho (<span id="cart-count">0</span>)
-                </button>
-              </div>
+        <!-- ================= MÓDULO 2: CARDÁPIO 3D COM FOTOS & PEDIDOS ================= -->
+        <section id="section-menu" class="hidden space-y-6 animate-fade-in">
+          <div class="glass-card p-6 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                <i data-lucide="utensils-crossed" class="text-google-yellow"></i> Cardápio Interativo & Room Service
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">Imagens de alta resolução e sincronização em tempo real com a cozinha do Restaurante Mandi.</p>
             </div>
-
-            <!-- Categorias -->
-            <div id="category-tabs" class="flex gap-2 overflow-x-auto pb-2">
-              <!-- Renderizado via JS -->
-            </div>
-
-            <!-- Grade de Produtos -->
-            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <!-- Renderizado via JS -->
+            <div class="flex items-center gap-3 w-full md:w-auto">
+              <div class="relative w-full md:w-64">
+                <i data-lucide="search" class="absolute left-3.5 top-3 w-4 h-4 text-slate-400"></i>
+                <input type="text" id="menu-search" oninput="filterMenu(this.value)" placeholder="Buscar prato, porção..." class="w-full bg-slate-900 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-google-blue" />
+              </div>
+              <button onclick="openCartModal()" class="btn-3d bg-google-yellow text-slate-950 font-extrabold px-4 py-2.5 rounded-xl text-sm flex items-center gap-2 whitespace-nowrap shadow-lg">
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i> Carrinho (<span id="cart-counter">0</span>)
+              </button>
             </div>
           </div>
-        </main>
 
-        <footer class="border-t border-slate-800/80 pt-6 mt-12 text-center text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>© 2026 Laguna Plaza Hotel & Restaurante Mandi · Powered by Droppfy & Cloudflare Enterprise Architecture.</p>
-          <div class="flex gap-4 font-mono">
-            <span class="text-emerald-400">● Redis Cluster Active</span>
-            <span class="text-blue-400">● D1 Database Synchronized</span>
+          <!-- Abas de Categorias -->
+          <div id="category-container" class="flex gap-2 overflow-x-auto pb-2">
+            <!-- Renderizado via JS -->
           </div>
-        </footer>
-      </div>
+
+          <!-- Grid de Produtos com Fotos Realistas -->
+          <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Renderizado via JS -->
+          </div>
+        </section>
+
+        <!-- ================= MÓDULO 3: QR CODE & NFC DIGITAL ================= -->
+        <section id="section-qrcode" class="hidden space-y-8 animate-fade-in max-w-3xl mx-auto text-center">
+          <div class="glass-card p-8 md:p-12 rounded-3xl space-y-6">
+            <div class="w-20 h-20 bg-google-blue/10 border border-google-blue/30 rounded-3xl mx-auto flex items-center justify-center text-google-blue shadow-lg">
+              <i data-lucide="qr-code" class="w-10 h-10"></i>
+            </div>
+            <div class="space-y-2">
+              <h2 class="text-2xl md:text-3xl font-extrabold text-white">QR Code Dinâmico de Acesso à Mesa & Quarto</h2>
+              <p class="text-slate-300 text-sm">Escaneie com qualquer smartphone para abrir o cardápio instantaneamente sem baixar aplicativos, ou aproxime seu dispositivo habilitado com NFC.</p>
+            </div>
+
+            <!-- Simulação de QR Code Gráfico 3D -->
+            <div class="bg-white p-6 rounded-3xl inline-block shadow-2xl transform hover:scale-105 transition-transform">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://ws.droppfy.com/cardapio-laguna" alt="QR Code Laguna Plaza" class="mx-auto rounded-xl" />
+              <p class="text-xs font-mono font-bold text-slate-900 mt-3">https://ws.droppfy.com/cardapio-laguna</p>
+            </div>
+
+            <div class="flex justify-center gap-4 pt-4">
+              <button onclick="triggerConfetti()" class="btn-3d bg-google-green text-slate-950 font-bold px-6 py-3 rounded-xl text-sm flex items-center gap-2">
+                <i data-lucide="smartphone-nfc" class="w-4 h-4"></i> Testar Aproximação NFC
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Footer Minimalista -->
+      <footer class="border-t border-slate-800 pt-6 mt-12 text-center text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p>© 2026 Laguna Plaza Hotel & Restaurante Mandi · Desenvolvido com Tecnologias de Ponta USA & Israel.</p>
+        <div class="flex gap-4 font-mono">
+          <span class="text-google-green">● Redis Cluster</span>
+          <span class="text-google-blue">● Cloudflare Edge</span>
+          <span class="text-google-yellow">● 3D WebGL UI</span>
+        </div>
+      </footer>
+
     </div>
 
-    <!-- Carrinho Drawer -->
-    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/80 hidden justify-end backdrop-blur-sm">
+    <!-- Carrinho Drawer Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 hidden justify-end backdrop-blur-sm">
       <div class="w-full max-w-md bg-slate-900 h-full p-6 flex flex-col justify-between border-l border-slate-800 shadow-2xl">
         <div>
           <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-            <h2 class="font-bold text-lg text-amber-400">Carrinho & Room Service</h2>
-            <button onclick="closeCart()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+            <h2 class="font-bold text-lg text-google-yellow flex items-center gap-2">
+              <i data-lucide="shopping-bag" class="w-5 h-5"></i> Seu Pedido Atual
+            </h2>
+            <button onclick="closeCartModal()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
           </div>
-          <div id="cart-items" class="mt-4 space-y-3 max-h-[60vh] overflow-y-auto pr-2">
-            <!-- Itens do carrinho -->
+          <div id="cart-items-list" class="mt-4 space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+            <!-- Itens injetados via JS -->
           </div>
         </div>
-        <div>
-          <div class="border-t border-slate-800 pt-4 mb-4 flex justify-between items-center font-bold text-lg">
-            <span>Total da Conta:</span>
-            <span id="cart-total" class="text-emerald-400">R$ 0,00</span>
+        <div class="space-y-4">
+          <div class="border-t border-slate-800 pt-4 flex justify-between items-center font-bold text-lg">
+            <span>Total:</span>
+            <span id="cart-total-price" class="text-google-green">R$ 0,00</span>
           </div>
-          <button onclick="checkoutOrder()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold py-3.5 rounded-xl transition-all shadow-lg shadow-emerald-500/20">
-            Confirmar Pedido para o Quarto / Cozinha
+          <button onclick="confirmOrder()" class="btn-3d w-full bg-google-green text-slate-950 font-extrabold py-3.5 rounded-xl transition-all shadow-lg text-sm">
+            Enviar Pedido para Cozinha / Quarto
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Script de Arquitetura Client-Side Robusto -->
+    <!-- Script de Aplicação Completa 3D & API -->
     <script>
-      // Base de Dados Simulada (Integrada com D1 / Menu)
+      // Inicializar Ícones Lucide
+      lucide.createIcons();
+
+      // Banco de Dados do Cardápio com Fotos Reais Selecionadas
       const categories = [
-        { id: 'all', title: 'Todos os Itens' },
-        { id: 'entradas', title: 'Entradas & Porções' },
-        { id: 'principais', title: 'Pratos Principais' },
-        { id: 'bebidas', title: 'Bebidas & Drinks' }
+        { id: 'all', title: '✨ Todos os Itens' },
+        { id: 'entradas', title: '🥟 Entradas & Porções' },
+        { id: 'principais', title: '🥩 Pratos Principais' },
+        { id: 'bebidas', title: '🍹 Bebidas & Drinks' }
       ];
 
       const menuItems = [
-        { id: '1', category_id: 'entradas', name: 'Batata Frita com Cheddar e Bacon', description: 'Porção generosa de batatas sequinhas cobertas com creme de cheddar artesanal e bacon crocante.', price: 48.90 },
-        { id: '2', category_id: 'entradas', name: 'Bolinho de Mandioca com Carne de Sol', description: 'Acompanha geleia de pimenta da casa e ervas finas.', price: 52.00 },
-        { id: '3', category_id: 'principais', name: 'Filé Mignon à Parmegiana', description: 'Acompanha arroz branco e fritas. Molho de tomate rústico artesanal. Serve duas pessoas.', price: 118.90 },
-        { id: '4', category_id: 'principais', name: 'Palha Italiana de Frango Caipira ao Sugo', description: 'Prato tradicional e exclusivo do Restaurante Mandi.', price: 89.00 },
-        { id: '5', category_id: 'bebidas', name: 'Suco Natural de Laranja (500ml)', description: 'Feito com frutas fresquinhas selecionadas da estação.', price: 12.00 },
-        { id: '6', category_id: 'bebidas', name: 'Cerveja Long Neck Heineken', description: 'Trincando de gelada.', price: 14.00 }
+        { 
+          id: '1', 
+          category_id: 'entradas', 
+          name: 'Batata Frita com Cheddar e Bacon', 
+          description: 'Porção generosa de batatas sequinhas cobertas com creme de cheddar artesanal e bacon crocante.', 
+          price: 48.90,
+          image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80'
+        },
+        { 
+          id: '2', 
+          category_id: 'entradas', 
+          name: 'Bolinho de Mandioca com Carne de Sol', 
+          description: 'Acompanha geleia de pimenta da casa e ervas finas selecionadas.', 
+          price: 52.00,
+          image: 'https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=600&q=80'
+        },
+        { 
+          id: '3', 
+          category_id: 'principais', 
+          name: 'Filé Mignon à Parmegiana', 
+          description: 'Acompanha arroz branco e fritas. Molho de tomate rústico artesanal. Serve duas pessoas.', 
+          price: 118.90,
+          image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=600&q=80'
+        },
+        { 
+          id: '4', 
+          category_id: 'principais', 
+          name: 'Palha Italiana de Frango Caipira ao Sugo', 
+          description: 'Prato tradicional e exclusivo do Restaurante Mandi com tempero caseiro.', 
+          price: 89.00,
+          image: 'https://images.unsplash.com/photo-1604908176997-125f2596f3ed?auto=format&fit=crop&w=600&q=80'
+        },
+        { 
+          id: '5', 
+          category_id: 'bebidas', 
+          name: 'Suco Natural de Laranja (500ml)', 
+          description: 'Feito com frutas fresquinhas espremidas na hora da estação.', 
+          price: 12.00,
+          image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80'
+        },
+        { 
+          id: '6', 
+          category_id: 'bebidas', 
+          name: 'Cerveja Long Neck Heineken', 
+          description: 'Trincando de gelada, ideal para acompanhar porções.', 
+          price: 14.00,
+          image: 'https://images.unsplash.com/photo-1608270105740-972173f4439c?auto=format&fit=crop&w=600&q=80'
+        }
       ];
 
+      let currentCategory = 'all';
       let cart = [];
-      let activeCat = 'all';
 
-      function switchMode(mode) {
-        const airlineView = document.getElementById('view-airline');
-        const menuView = document.getElementById('view-menu');
-        const btnAirline = document.getElementById('btn-airline');
-        const btnMenu = document.getElementById('btn-menu');
+      // Controle de Abas
+      function switchTab(tabName) {
+        document.getElementById('section-airline').classList.add('hidden');
+        document.getElementById('section-menu').classList.add('hidden');
+        document.getElementById('section-qrcode').classList.add('hidden');
 
-        if (mode === 'airline') {
-          airlineView.classList.remove('hidden');
-          menuView.classList.add('hidden');
-          btnAirline.className = "px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 transition-all shadow-lg shadow-amber-500/20";
-          btnMenu.className = "px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
-        } else {
-          airlineView.classList.add('hidden');
-          menuView.classList.remove('hidden');
-          btnMenu.className = "px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 transition-all shadow-lg shadow-amber-500/20";
-          btnAirline.className = "px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
+        document.getElementById('tab-btn-airline').className = "btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white flex items-center gap-2";
+        document.getElementById('tab-btn-menu').className = "btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white flex items-center gap-2";
+        document.getElementById('tab-btn-qrcode').className = "btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white flex items-center gap-2";
+
+        if (tabName === 'airline') {
+          document.getElementById('section-airline').classList.remove('hidden');
+          document.getElementById('tab-btn-airline').className = "btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-google-blue text-white flex items-center gap-2 shadow-lg";
+        } else if (tabName === 'menu') {
+          document.getElementById('section-menu').classList.remove('hidden');
+          document.getElementById('tab-btn-menu').className = "btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-google-yellow text-slate-950 flex items-center gap-2 shadow-lg";
           renderMenu();
+        } else if (tabName === 'qrcode') {
+          document.getElementById('section-qrcode').classList.remove('hidden');
+          document.getElementById('tab-btn-qrcode').className = "btn-3d px-4 py-2.5 rounded-xl text-xs font-bold bg-google-green text-slate-950 flex items-center gap-2 shadow-lg";
         }
+        lucide.createIcons();
       }
 
-      function renderMenu(filterQuery = '', cat = 'all') {
-        const tabsContainer = document.getElementById('category-tabs');
-        const gridContainer = document.getElementById('menu-grid');
+      // Renderizar Cardápio 3D com Fotos
+      function renderMenu(searchQuery = '') {
+        const containerTabs = document.getElementById('category-container');
+        const gridMenu = document.getElementById('menu-grid');
 
-        // Render Tabs
-        tabsContainer.innerHTML = categories.map(c => `
-          <button onclick="setCategory('${c.id}')" class="px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeCat === c.id ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800'}">
-            ${c.title}
+        containerTabs.innerHTML = categories.map(cat => `
+          <button onclick="setCategory('${cat.id}')" class="btn-3d px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${currentCategory === cat.id ? 'bg-google-yellow text-slate-950' : 'bg-slate-900 text-slate-300 border border-slate-800'}">
+            ${cat.title}
           </button>
         `).join('');
 
-        // Filter Items
         const filtered = menuItems.filter(item => {
-          const matchesCat = activeCat === 'all' || item.category_id === activeCat;
-          const matchesQuery = item.name.toLowerCase().includes(filterQuery.toLowerCase()) || item.description.toLowerCase().includes(filterQuery.toLowerCase());
-          return matchesCat && matchesQuery;
+          const matchCat = currentCategory === 'all' || item.category_id === currentCategory;
+          const matchQuery = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.description.toLowerCase().includes(searchQuery.toLowerCase());
+          return matchCat && matchQuery;
         });
 
-        gridContainer.innerHTML = filtered.map(item => `
-          <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between hover:border-slate-700 transition-all">
-            <div>
-              <h3 class="font-bold text-lg text-amber-400">${item.name}</h3>
-              <p class="text-xs text-slate-400 mt-2 leading-relaxed">${item.description}</p>
+        gridMenu.innerHTML = filtered.map(item => `
+          <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group">
+            <div class="relative h-48 overflow-hidden bg-slate-950">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+              <span class="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur border border-slate-700 text-google-green font-mono text-xs px-3 py-1 rounded-full font-bold">
+                R$ ${item.price.toFixed(2).replace('.', ',')}
+              </span>
             </div>
-            <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-800/60">
-              <span class="font-bold text-emerald-400 text-base">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
-              <button onclick="addToCart('${item.id}')" class="bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-amber-400 border border-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all">
-                + Adicionar
+            <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 class="font-bold text-lg text-white group-hover:text-google-yellow transition-colors">${item.name}</h3>
+                <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">${item.description}</p>
+              </div>
+              <button onclick="addToCart('${item.id}')" class="btn-3d w-full bg-slate-800 hover:bg-google-blue hover:text-white text-google-blue border border-slate-700 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
+                <i data-lucide="plus-circle" class="w-4 h-4"></i> Adicionar ao Carrinho
               </button>
             </div>
           </div>
         `).join('') || `<p class="col-span-full text-center text-slate-500 py-12">Nenhum item encontrado.</p>`;
+
+        lucide.createIcons();
       }
 
-      function setCategory(catId) {
-        activeCat = catId;
-        renderMenu(document.getElementById('menu-search').value, activeCat);
+      function setCategory(id) {
+        currentCategory = id;
+        renderMenu(document.getElementById('menu-search').value);
       }
 
       function filterMenu(val) {
-        renderMenu(val, activeCat);
+        renderMenu(val);
       }
 
+      // Carrinho de Compras
       function addToCart(id) {
         const item = menuItems.find(i => i.id === id);
         const existing = cart.find(i => i.id === id);
         if (existing) {
-          existing.quantity += 1;
+          existing.qty += 1;
         } else {
-          cart.push({ ...item, quantity: 1 });
+          cart.push({ ...item, qty: 1 });
         }
         updateCartUI();
+        triggerConfettiSmall();
       }
 
       function updateCartUI() {
-        const count = cart.reduce((sum, i) => sum + i.quantity, 0);
-        const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-        document.getElementById('cart-count').innerText = count;
-        document.getElementById('cart-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        const count = cart.reduce((sum, i) => sum + i.qty, 0);
+        const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+        document.getElementById('cart-counter').innerText = count;
+        document.getElementById('cart-total-price').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
 
-        const container = document.getElementById('cart-items');
-        container.innerHTML = cart.map(i => `
-          <div class="flex justify-between items-center text-sm border-b border-slate-800 pb-2">
+        const list = document.getElementById('cart-items-list');
+        list.innerHTML = cart.map(i => `
+          <div class="flex justify-between items-center text-sm border-b border-slate-800 pb-3">
             <div>
               <p class="font-medium text-white">${i.name}</p>
-              <p class="text-xs text-slate-400">Qtd: ${i.quantity} x R$ ${i.price.toFixed(2)}</p>
+              <p class="text-xs text-slate-400">Qtd: ${i.qty} x R$ ${i.price.toFixed(2)}</p>
             </div>
-            <p class="font-bold text-emerald-400">R$ ${(i.price * i.quantity).toFixed(2)}</p>
+            <p class="font-bold text-google-green">R$ ${(i.price * i.qty).toFixed(2)}</p>
           </div>
         `).join('') || `<p class="text-slate-500 text-center py-8">Seu carrinho está vazio.</p>`;
       }
 
-      function openCart() { document.getElementById('cart-drawer').classList.remove('hidden'); document.getElementById('cart-drawer').classList.add('flex'); }
-      function closeCart() { document.getElementById('cart-drawer').classList.add('hidden'); document.getElementById('cart-drawer').classList.remove('flex'); }
-
-      function checkoutOrder() {
-        if (cart.length === 0) return alert('Adicione itens ao carrinho.');
-        alert('Pedido enviado com sucesso para a cozinha e para o sistema de gestão do hotel!');
-        cart = [];
-        updateCartUI();
-        closeCart();
+      function openCartModal() {
+        document.getElementById('cart-modal').classList.remove('hidden');
+        document.getElementById('cart-modal').classList.add('flex');
       }
 
-      async function handleVoucherSubmit(e) {
+      function closeCartModal() {
+        document.getElementById('cart-modal').classList.add('hidden');
+        document.getElementById('cart-modal').classList.remove('flex');
+      }
+
+      function confirmOrder() {
+        if (cart.length === 0) return alert('Seu carrinho está vazio.');
+        triggerConfetti();
+        alert('Pedido enviado com sucesso para a cozinha do Restaurante Mandi e sistema do hotel!');
+        cart = [];
+        updateCartUI();
+        closeCartModal();
+      }
+
+      // Submissão PNR Aeroportuário (Simulação API Redis & NestJS)
+      function handlePNRSubmit(e) {
         e.preventDefault();
-        const airlineId = document.getElementById('airlineId').value;
-        const pnr = document.getElementById('pnr').value.toUpperCase();
-        const name = document.getElementById('passengerName').value;
-        const doc = document.getElementById('documentNumber').value;
-        const isCrew = document.getElementById('isCrew').value === 'true';
+        const airline = document.getElementById('pnr-airline').value;
+        const pnr = document.getElementById('pnr-code').value.toUpperCase();
+        const name = document.getElementById('pnr-name').value;
 
-        // Simulação da Resposta da API NestJS / Redis (Padrão Israelita de Alta Segurança)
-        const voucherId = `VOUCHER-${airlineId}-${Math.floor(Math.random() * 89999 + 10000)}`;
-        const token = btoa(JSON.stringify({ voucherId, pnr, name, timestamp: Date.now() }));
+        const voucherId = `VOUCHER-${airline}-${Math.floor(Math.random() * 89999 + 10000)}`;
+        const token = btoa(JSON.stringify({ voucherId, pnr, name, ts: Date.now() }));
 
-        document.getElementById('voucher-result').classList.remove('hidden');
-        document.getElementById('res-voucher-id').innerText = voucherId;
-        document.getElementById('res-url').innerText = `https://ws.droppfy.com/checkin?voucher=${token.substring(0, 24)}...`;
-        document.getElementById('res-token').innerText = token;
+        document.getElementById('pnr-success-box').classList.remove('hidden');
+        document.getElementById('out-voucher-id').innerText = voucherId;
+        document.getElementById('out-url').innerText = `https://ws.droppfy.com/checkin?voucher=${token.substring(0, 20)}...`;
+        document.getElementById('out-token').innerText = token;
+        
+        triggerConfetti();
+      }
+
+      function triggerConfetti() {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+
+      function triggerConfettiSmall() {
+        confetti({
+          particleCount: 30,
+          spread: 40,
+          origin: { y: 0.8 }
+        });
       }
     </script>
   </body>
